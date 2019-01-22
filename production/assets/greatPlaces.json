@@ -1,0 +1,172 @@
+{
+	"type": "FeatureCollection",
+	"features": [{
+			"type": "Feature",
+			"properties": {
+				"city": "London",
+				"scale": 2500000
+			},
+			"geometry": {
+				"type": "Point",
+				"coordinates": [
+					-0.118092,
+					51.509865
+				]
+			}
+		},
+		{
+			"type": "Feature",
+			"properties": {
+				"city": "Swindon",
+				"scale": 2500000
+			},
+			"geometry": {
+				"type": "Point",
+				"coordinates": [
+					-1.772232,
+					51.568535
+				]
+			}
+		},
+		{
+			"type": "Feature",
+			"properties": {
+				"city": "Aberdeen",
+				"scale": 2900000
+			},
+			"geometry": {
+				"type": "Point",
+				"coordinates": [
+					-2.099075,
+					57.149651
+				]
+			}
+		},
+		{
+			"type": "Feature",
+			"properties": {
+				"city": "Preston",
+				"scale": 3500000
+			},
+			"geometry": {
+				"type": "Point",
+				"coordinates": [
+					-2.692337,
+					53.765762
+				]
+			}
+		},
+		{
+			"type": "Feature",
+			"properties": {
+				"city": "Oxford",
+				"scale": 2300000
+			},
+			"geometry": {
+				"type": "Point",
+				"coordinates": [
+					-1.257677,
+					51.752022
+				]
+			}
+		},
+		{
+			"type": "Feature",
+			"properties": {
+				"city": "Peterborough",
+				"scale": 1750000
+			},
+			"geometry": {
+				"type": "Point",
+				"coordinates": [
+					-0.250830,
+					52.573921
+				]
+			}
+		},
+		{
+			"type": "Feature",
+			"properties": {
+				"city": "Uckfield",
+				"scale": 50000
+			},
+			"geometry": {
+				"type": "Point",
+				"coordinates": [
+					0.085831,
+					50.967941
+				]
+			}
+		},
+		{
+			"type": "Feature",
+			"properties": {
+				"city": "Basildon",
+				"scale": 3300000
+			},
+			"geometry": {
+				"type": "Point",
+				"coordinates": [
+					0.470009,
+					51.572376
+				]
+			}
+		},
+		{
+			"type": "Feature",
+			"properties": {
+				"city": "Salisbury",
+				"scale": 3200000
+			},
+			"geometry": {
+				"type": "Point",
+				"coordinates": [
+					-1.794472,
+					51.068787
+				]
+			}
+		},
+		{
+			"type": "Feature",
+			"properties": {
+				"city": "Northampton",
+				"scale": 3200000
+			},
+			"geometry": {
+				"type": "Point",
+				"coordinates": [
+					-0.902656,
+					52.240479
+				]
+			}
+		},
+		{
+			"type": "Feature",
+			"properties": {
+				"city": "Solihull",
+				"scale": 3200000
+			},
+			"geometry": {
+				"type": "Point",
+				"coordinates": [
+					-1.778197,
+					52.412811
+				]
+			}
+		},
+		{
+			"type": "Feature",
+			"properties": {
+				"city": "Rugby",
+				"scale": 2800000
+			},
+			"geometry": {
+				"type": "Point",
+				"coordinates": [
+					-1.265032,
+					52.370876
+				]
+			}
+		}
+	]
+}

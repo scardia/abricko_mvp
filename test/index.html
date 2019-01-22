@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<!-- saved from url=(0045)http://app.gtechinfo.com/3D-Map/index008.html -->
+<html style=""><head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+    <link href="Population%20density%20inspector_files/style.css" rel="stylesheet">
+    <title>Population density inspector</title>
+
+    <meta name="viewport" content="initial-scale=1,maximum-scale=1,user-scalable=no">
+    <script src="Population%20density%20inspector_files/mapbox-gl.js"></script>
+    <script src="Population%20density%20inspector_files/mapbox-gl-geocoder.js"></script>
+    <script src="Population%20density%20inspector_files/turf.js"></script>
+    <link rel="stylesheet" href="Population%20density%20inspector_files/mapbox-gl-geocoder.css" type="text/css">
+    <link href="Population%20density%20inspector_files/mapbox-gl.css" rel="stylesheet">
+    <link href="Population%20density%20inspector_files/base.css" rel="stylesheet">
+
+</head>
+
+<body cz-shortcut-listen="true">
+    <div class="mobile z100 dark pin-bottom center fill-dark pad1y">
+        Best experience on desktop
+    </div>
+    <div id="map" class="" style="width:auto;height:69%;">
+        <div id="tooltip" class="dark">
+            <div class="dot"></div>
+            <div class="line"></div>
+            <div class="bubble">
+                <span class="rcon account strong" id="blockcount"></span>
+                <span class="quiet small">
+                    (<span id="blockdensity"></span>/km<sup>2</sup>)
+                </span>
+                <div id="address" class="small quiet"></div>
+            </div>
+        </div>
+        <div class="mapboxgl-canary" style="visibility: hidden;"></div>
+        <div class="mapboxgl-canvas-container mapboxgl-interactive mapboxgl-touch-drag-pan mapboxgl-touch-zoom-rotate"><canvas class="mapboxgl-canvas" tabindex="0" aria-label="Map" width="3316" height="1312" style="position: absolute; width: 1895px; height: 750px; cursor: pointer;"></canvas></div>
+        <div class="mapboxgl-control-container">
+            <div class="mapboxgl-ctrl-top-left"></div>
+            <div class="mapboxgl-ctrl-top-right"></div>
+            <div class="mapboxgl-ctrl-bottom-left">
+                <div class="mapboxgl-ctrl" style="display: block;"><a class="mapboxgl-ctrl-logo" target="_blank" href="https://www.mapbox.com/" aria-label="Mapbox logo" rel="noopener"></a></div>
+            </div>
+            <div class="mapboxgl-ctrl-bottom-right">
+                <div class="mapboxgl-ctrl mapboxgl-ctrl-attrib"><a href="https://www.mapbox.com/about/maps/" target="_blank">©
+                        Mapbox</a> <a href="http://www.openstreetmap.org/about/" target="_blank">© OpenStreetMap</a> <a class="mapbox-improve-map" href="https://www.mapbox.com/feedback/?owner=sahil96&amp;id=cjpmijh9r03dy2rp1qz8fhpqt&amp;access_token=pk.eyJ1Ijoic2FoaWw5NiIsImEiOiJjanBhdTF3MmUyY2FzM3FweDR2a21leGgxIn0.ZTpWeMbbJeYd345EkPy-NQ" target="_blank">Improve this map</a></div>
+            </div>
+        </div>
+    <div class="mapboxgl-canary" style="visibility: hidden;"></div><div class="mapboxgl-canvas-container mapboxgl-interactive mapboxgl-touch-drag-pan mapboxgl-touch-zoom-rotate"><canvas class="mapboxgl-canvas" style="position: absolute; width: 1300px; height: 527px; cursor: pointer;" tabindex="0" aria-label="Map" width="1300" height="527"></canvas></div><div class="mapboxgl-control-container"><div class="mapboxgl-ctrl-top-left"></div><div class="mapboxgl-ctrl-top-right"></div><div class="mapboxgl-ctrl-bottom-left"><div class="mapboxgl-ctrl" style="display: block;"><a class="mapboxgl-ctrl-logo" target="_blank" href="https://www.mapbox.com/" aria-label="Mapbox logo" rel="noopener"></a></div></div><div class="mapboxgl-ctrl-bottom-right"><div class="mapboxgl-ctrl mapboxgl-ctrl-attrib"><div class="mapboxgl-ctrl-attrib-inner"><a href="https://www.mapbox.com/about/maps/" target="_blank">© Mapbox</a> <a href="http://www.openstreetmap.org/about/" target="_blank">© OpenStreetMap</a> <a class="mapbox-improve-map" href="https://www.mapbox.com/feedback/?owner=mapbox&amp;id=light-v9&amp;access_token=pk.eyJ1Ijoic2FoaWw5NiIsImEiOiJjanBhdTF3MmUyY2FzM3FweDR2a21leGgxIn0.ZTpWeMbbJeYd345EkPy-NQ" target="_blank">Improve this map</a></div></div></div></div></div>
+    <div class="row">
+        <div class="right-corner1" id="rightCorner1" style="background-color:#fff;width:80%;height:30%;float:left">
+            <img id="imgCorner1" src="Population%20density%20inspector_files/61544_4625099_IMG_02_0000_max_656x437.jpg" alt="Property Image" style="width:70%;height:60%;bottom: 0;right: 0;">
+        </div>
+        <div class="right-corner" id="rightCorner" style="background-color:#fff;width:85%; height:30%;display:none;float:right;margin-right: -696px;">
+            <img id="imgCorner" src="Population%20density%20inspector_files/61544_4625099_IMG_02_0000_max_656x437.jpg" alt="Property Image" style="width:50%;height:98%;bottom: 0;right: 0;">
+        </div>
+    </div>
+    <div class="pin-topleft z100 dark fill-dark desktop" id="sidebar">
+        <div class="pad1 geocoder z100 pin-top"></div>
+        <div id="minimap" class="section mapboxgl-map">
+            <div class="mapboxgl-canary" style="visibility: hidden;"></div>
+            <div class="mapboxgl-canvas-container"><canvas class="mapboxgl-canvas" tabindex="0" aria-label="Map" width="523" height="383" style="position: absolute; width: 299px; height: 219px;"></canvas></div>
+            <div class="mapboxgl-control-container">
+                <div class="mapboxgl-ctrl-top-left"></div>
+                <div class="mapboxgl-ctrl-top-right"></div>
+                <div class="mapboxgl-ctrl-bottom-left">
+                    <div class="mapboxgl-ctrl" style="display: block;"><a class="mapboxgl-ctrl-logo" target="_blank" href="https://www.mapbox.com/" aria-label="Mapbox logo" rel="noopener"></a></div>
+                </div>
+                <div class="mapboxgl-ctrl-bottom-right">
+                    <div class="mapboxgl-ctrl mapboxgl-ctrl-attrib mapboxgl-compact"><a href="https://www.mapbox.com/about/maps/" target="_blank">© Mapbox</a> <a href="http://www.openstreetmap.org/about/" target="_blank">©
+                            OpenStreetMap</a> <a class="mapbox-improve-map" href="https://www.mapbox.com/feedback/?owner=sahil96&amp;id=cjphssb7k08k02skaug8c77aq&amp;access_token=pk.eyJ1Ijoic2FoaWw5NiIsImEiOiJjanBhdTF3MmUyY2FzM3FweDR2a21leGgxIn0.ZTpWeMbbJeYd345EkPy-NQ" target="_blank">Improve this map</a></div>
+                </div>
+            </div>
+        <div class="mapboxgl-canary" style="visibility: hidden;"></div><div class="mapboxgl-canvas-container"><canvas class="mapboxgl-canvas" style="position: absolute; width: 299px; height: 219px;" tabindex="0" aria-label="Map" width="299" height="219"></canvas><div class="marker mapboxgl-marker mapboxgl-marker-anchor-center" id="city0" style="transform: translate(-50%, -50%) translate(175px, 150px);" onclick="jumpToCity(0)"></div><div class="marker mapboxgl-marker mapboxgl-marker-anchor-center" id="city1" style="transform: translate(-50%, -50%) translate(155px, 148px);" onclick="jumpToCity(1)"></div><div class="marker mapboxgl-marker mapboxgl-marker-anchor-center" id="city2" style="transform: translate(-50%, -50%) translate(151px, 31px);" onclick="jumpToCity(2)"></div><div class="marker mapboxgl-marker mapboxgl-marker-anchor-center" id="city3" style="transform: translate(-50%, -50%) translate(144px, 104px);" onclick="jumpToCity(3)"></div><div class="marker mapboxgl-marker mapboxgl-marker-anchor-center" id="city4" style="transform: translate(-50%, -50%) translate(161px, 145px);" onclick="jumpToCity(4)"></div><div class="marker mapboxgl-marker mapboxgl-marker-anchor-center" id="city5" style="transform: translate(-50%, -50%) translate(173px, 128px);" onclick="jumpToCity(5)"></div><div class="marker mapboxgl-marker mapboxgl-marker-anchor-center" id="city6" style="transform: translate(-50%, -50%) translate(178px, 160px);" onclick="jumpToCity(6)"></div><div class="marker mapboxgl-marker mapboxgl-marker-anchor-center" id="city7" style="transform: translate(-50%, -50%) translate(182px, 148px);" onclick="jumpToCity(7)"></div><div class="marker mapboxgl-marker mapboxgl-marker-anchor-center" id="city8" style="transform: translate(-50%, -50%) translate(155px, 158px);" onclick="jumpToCity(8)"></div><div class="marker mapboxgl-marker mapboxgl-marker-anchor-center" id="city9" style="transform: translate(-50%, -50%) translate(165px, 135px);" onclick="jumpToCity(9)"></div><div class="marker mapboxgl-marker mapboxgl-marker-anchor-center" id="city10" style="transform: translate(-50%, -50%) translate(155px, 132px);" onclick="jumpToCity(10)"></div><div class="marker mapboxgl-marker mapboxgl-marker-anchor-center" id="city11" style="transform: translate(-50%, -50%) translate(161px, 133px);" onclick="jumpToCity(11)"></div></div><div class="mapboxgl-control-container"><div class="mapboxgl-ctrl-top-left"></div><div class="mapboxgl-ctrl-top-right"></div><div class="mapboxgl-ctrl-bottom-left"><div class="mapboxgl-ctrl" style="display: block;"><a class="mapboxgl-ctrl-logo" target="_blank" href="https://www.mapbox.com/" aria-label="Mapbox logo" rel="noopener"></a></div></div><div class="mapboxgl-ctrl-bottom-right"><div class="mapboxgl-ctrl mapboxgl-ctrl-attrib mapboxgl-compact"><div class="mapboxgl-ctrl-attrib-inner"><a href="https://www.mapbox.com/about/maps/" target="_blank">© Mapbox</a> <a href="http://www.openstreetmap.org/about/" target="_blank">© OpenStreetMap</a> <a class="mapbox-improve-map" href="https://www.mapbox.com/feedback/?owner=mapbox&amp;id=light-v9&amp;access_token=pk.eyJ1Ijoic2FoaWw5NiIsImEiOiJjanBhdTF3MmUyY2FzM3FweDR2a21leGgxIn0.ZTpWeMbbJeYd345EkPy-NQ" target="_blank">Improve this map</a></div></div></div></div></div>
+        <div class="pad1 section clearfix">
+            <span class="small uppercase label strong">Visualization</span>
+            <div class="rounded-toggle fr col4">
+                <input id="pizza" type="radio" name="rtoggle" value="pizza">
+                <label for="pizza" class="col6 center" onclick="tilt(false)">2D</label>
+                <input id="penny" type="radio" name="rtoggle" value="penny" checked="checked">
+                <label for="penny" class="col6 center" onclick="tilt(true)">3D</label>
+            </div>
+        </div>
+        <div class="pad1 section clearfix ">
+            <span class="small uppercase label quiet">roads</span>
+            <div class="rounded-toggle fr col4">
+                <input id="roadson" type="radio" name="roads" value="roadson" checked="checked">
+                <label for="roadson" class="col6 center" onclick="toggleRoads(true)">ON</label>
+                <input id="roadsoff" type="radio" name="roads" value="roadsoff">
+                <label for="roadsoff" class="col6 center" onclick="toggleRoads(false)">OFF</label>
+            </div>
+        </div>
+        <div class="pad1 section clearfix">
+            <span class="small uppercase label quiet">Labels</span>
+            <div class="rounded-toggle fr col4">
+                <input id="labelon" type="radio" name="labels" value="labelon" checked="checked">
+                <label for="labelon" class="col6 center" onclick="toggleLabels(true)">ON</label>
+                <input id="labeloff" type="radio" name="labels" value="labeloff">
+                <label for="labeloff" class="col6 center" onclick="toggleLabels(false)">OFF</label>
+            </div>
+        </div>
+        <div class="pad1 section clearfix hidden">
+            <span class="small uppercase label quiet short">Inspector</span>
+            <div class="rounded-toggle fr col8">
+                <input id="none" type="radio" name="inspector" value="none">
+                <label for="none" class="col4 center" onclick='setInspector("none")'>None</label>
+                <input id="radius" type="radio" name="inspector" value="radius">
+                <label for="radius" class="col4 center" onclick='setInspector("radius")'>Radius</label>
+                <input id="block" type="radio" name="inspector" value="block" checked="checked">
+                <label for="block" class="col4 center" onclick='setInspector("block")'>Block</label>
+            </div>
+        </div>
+        <div class="section clearfix checkbox-pill pill hidden">
+            <input type="checkbox" id="checkbox-penny" checked="checked">
+            <label for="checkbox-penny" class="button icon check col6 small uppercase label quiet">Labels</label>
+            <input type="checkbox" id="checkbox-pizza" checked="checked">
+            <label for="checkbox-pizza" class="button icon check col6 small uppercase label quiet">Roads</label>
+        </div>
+        <fieldset class="pad1 section">
+            <span class="fl small uppercase label quiet" style="line-height:18px">adjust <br>scale</span>
+            <div class="col8 fr">
+                <input type="range" value="3500000" min="50000" max="3500000" step="50000" id="slider" class="col12">
+                <span class="fl small quiet uppercase">Minimize</span>
+                <span class="fr small quiet uppercase">Embellish</span>
+            </div>
+        </fieldset>
+    </div>
+    <div class="pin-bottomright scale tilted" id="legends" style="display:none">
+        <div class="pin-bottomright dark pad1" id="colorscale" style="margin:10px">
+            <div id="legend"></div>
+            <span class="fl small quiet uppercase">0</span>
+            <span class="fr small quiet uppercase" id="max">1450000+</span>
+            <span class="center block small quiet uppercase icon account">/km<sup>2</sup></span>
+        </div>
+        <div id="scale" class="pin-bottomright dark mapboxgl-map">
+            <div class="rcon small account z100 quiet center pin-bottom pad1y code" id="people">53</div>
+            <div class="mapboxgl-canary" style="visibility: hidden;"></div>
+            <div class="mapboxgl-canvas-container mapboxgl-interactive mapboxgl-touch-drag-pan mapboxgl-touch-zoom-rotate"><canvas class="mapboxgl-canvas" tabindex="0" aria-label="Map" width="700" height="525" style="position: absolute; width: 400px; height: 300px;"></canvas></div>
+            <div class="mapboxgl-control-container">
+                <div class="mapboxgl-ctrl-top-left"></div>
+                <div class="mapboxgl-ctrl-top-right"></div>
+                <div class="mapboxgl-ctrl-bottom-left">
+                    <div class="mapboxgl-ctrl" style="display: block;"><a class="mapboxgl-ctrl-logo mapboxgl-compact" target="_blank" href="https://www.mapbox.com/" aria-label="Mapbox logo" rel="noopener"></a></div>
+                </div>
+                <div class="mapboxgl-ctrl-bottom-right">
+                    <div class="mapboxgl-ctrl mapboxgl-ctrl-attrib mapboxgl-compact"><a href="https://www.mapbox.com/about/maps/" target="_blank">© Mapbox</a> <a href="http://www.openstreetmap.org/about/" target="_blank">©
+                            OpenStreetMap</a> <a class="mapbox-improve-map" href="https://www.mapbox.com/feedback/?owner=sahil96&amp;id=cjpmijh9r03dy2rp1qz8fhpqt&amp;access_token=pk.eyJ1Ijoic2FoaWw5NiIsImEiOiJjanBhdTF3MmUyY2FzM3FweDR2a21leGgxIn0.ZTpWeMbbJeYd345EkPy-NQ" target="_blank">Improve this map</a></div>
+                </div>
+            </div>
+        <div class="mapboxgl-canary" style="visibility: hidden;"></div><div class="mapboxgl-canvas-container mapboxgl-interactive mapboxgl-touch-drag-pan mapboxgl-touch-zoom-rotate"><canvas class="mapboxgl-canvas" style="position: absolute; width: 400px; height: 300px;" tabindex="0" aria-label="Map" width="400" height="300"></canvas></div><div class="mapboxgl-control-container"><div class="mapboxgl-ctrl-top-left"></div><div class="mapboxgl-ctrl-top-right"></div><div class="mapboxgl-ctrl-bottom-left"><div class="mapboxgl-ctrl" style="display: block;"><a class="mapboxgl-ctrl-logo mapboxgl-compact" target="_blank" href="https://www.mapbox.com/" aria-label="Mapbox logo" rel="noopener"></a></div></div><div class="mapboxgl-ctrl-bottom-right"><div class="mapboxgl-ctrl mapboxgl-ctrl-attrib mapboxgl-compact"><div class="mapboxgl-ctrl-attrib-inner"><a href="https://www.mapbox.com/about/maps/" target="_blank">© Mapbox</a> <a href="http://www.openstreetmap.org/about/" target="_blank">© OpenStreetMap</a> <a class="mapbox-improve-map" href="https://www.mapbox.com/feedback/?owner=mapbox&amp;id=light-v9&amp;access_token=pk.eyJ1Ijoic2FoaWw5NiIsImEiOiJjanBhdTF3MmUyY2FzM3FweDR2a21leGgxIn0.ZTpWeMbbJeYd345EkPy-NQ" target="_blank">Improve this map</a></div></div></div></div></div>
+    </div>
+
+    <span id="buffer-extension-hover-button" style="display: none; position: absolute; z-index: 8675309; width: 100px; height: 25px; background-image: url(&quot;chrome-extension://noojglkidnpfjbincgijbaiedldjfbhh/data/shared/img/buffer-hover-icon@2x.png&quot;); background-size: 100px 25px; opacity: 0.9; cursor: pointer; top: 848px; left: 1125px;"></span>
+
+    <script src="Population%20density%20inspector_files/app.js"></script>
+
+
+</body></html>
