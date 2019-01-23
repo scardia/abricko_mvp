@@ -24,9 +24,9 @@ var minimap = new mapboxgl.Map({
 });
 
 var colors = {
-    light: '#b2ffff',
-    average: '#8edfff',
-    dark: '#1974d2',
+    light:   '#b2ffff',
+    average: '#8098C7',
+    dark:    '#00308F',
     highlight: 'orange'
 }
 
@@ -69,7 +69,7 @@ map.on('load', function() {
         'type': 'fill-extrusion',
         'source': 'yields',
         'paint': {
-            'fill-extrusion-color': [ 'interpolate', ['exponential', 0], ['get', 'yield'], 0, colors.dark, 5, colors.average, 10, colors.light ],
+            'fill-extrusion-color': [ 'interpolate', ['exponential', 0], ['get', 'yield'], 2, colors.dark, 10, colors.light ],
             'fill-extrusion-base': 0,
             'fill-extrusion-height': [ 'interpolate', ['exponential', 0], ['get', 'yield'], 0, 0, 5, 300, 10, 1000 ],
             //'fill-opacity-transition': {'duration':1000},
@@ -189,7 +189,7 @@ map.on('load', function() {
         map.getCanvas().style.cursor = 'context-menu';
     });
 
-        
+
 });
 
 map.on('click', 'yields', function (e) {
@@ -363,6 +363,7 @@ function tilt(eh) {
 //function for retriving json data from url
 function GetJson(yourUrl) {
     var Httpreq = new XMLHttpRequest(); // a new request
+    Httpreq.overrideMimeType("application/json");
     Httpreq.open("GET", yourUrl, false);
     Httpreq.send(null);
     return JSON.parse(Httpreq.responseText);
