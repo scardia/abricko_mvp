@@ -1,7 +1,7 @@
 <div class="col-md-3 left_col">
 	<div class="left_col scroll-view">
 		<div class="navbar nav_title" style="border: 0;">
-			<a class="site_title"> <img id="menu_toggle" src="images/logo121.png" alt="..." style="height: 20px; width: auto;cursor:pointer;"/> <span style="font-family:lulo-clean-w01-one-bold,sans-serif;">ABRICKO</span>
+			<a class="site_title"> <img id="menu_toggle" src="images/logo121.png" alt="..." style="height: 20px; width: auto;cursor:pointer;margin-left: 23%;"/> <span style="font-family:lulo-clean-w01-one-bold,sans-serif;">ABRICKO</span>
 				<!--<i class="fa fa-times" id="menu_toggle" style="float: right;padding-top: 6%;"></i></span>-->
 			</a>
 

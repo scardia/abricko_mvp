@@ -1,10 +1,11 @@
-mapboxgl.accessToken = 'pk.eyJ1Ijoic2FoaWw5NiIsImEiOiJjanBhdTF3MmUyY2FzM3FweDR2a21leGgxIn0.ZTpWeMbbJeYd345EkPy-NQ';
+mapboxgl.accessToken = 'pk.eyJ1IjoiYWJyaWNrbyIsImEiOiJjanJhaGxlYzcwaG40NDRsaHhocXdocDVhIn0.hVzJBL6S1alSJ_-bbKc9QQ';
 
 var map = new mapboxgl.Map({
     container: 'map', // container id
-    style: 'mapbox://styles/sahil96/cjqwc303p0ryc2smsjcxsqekv',//'mapbox://styles/sahil96/cjq3mab2x8v9s2rqacdeia5a0',
-    center:[2.2426,53.4808], // starting position [lng, lat] [-2.12482, 57.1408],
-    zoom:05 // starting zoom
+    style: 'mapbox://styles/abricko/cjraikncz0ob62so80hnh4gdu', //'mapbox://styles/abricko/cjraikncz0ob62so80hnh4gdu',
+    center: [-0.0989, 51.5164 ], // starting position [lng, lat] [-2.12482, 57.1408],
+    hash: true,
+    zoom: 11 // starting zoom
 });
 // Full Screen Optiomn to main map
 map.addControl(new mapboxgl.FullscreenControl());
@@ -16,7 +17,7 @@ var emptyGeojson = {
 //setting mini Map
 var minimap = new mapboxgl.Map({
     container: 'minimap', // container id
-    style: 'mapbox://styles/sahil96/cjq4nghdh6fpp2smv1c0ww0e1',//'mapbox://styles/sahil96/cjphssb7k08k02skaug8c77aq', //stylesheet location
+    style: 'mapbox://styles/abricko/cjraijb5r03zz2smsvmpggyhn', //'mapbox://styles/abricko/cjraijb5r03zz2smsvmpggyhn', //stylesheet location
     center: [-1.000918, 56.009865], // starting position [-2.212918, 53.509865],
     interactive: false,
     hash: false,
@@ -24,33 +25,20 @@ var minimap = new mapboxgl.Map({
 });
 
 var colors = {
-    light:   '#b2ffff',
-    average: '#8098C7',
-    dark:    '#00308F',
+    light: '#b2ffff',
+    average: '#62a5e5',
+    dark: '#00308F',
     highlight: 'orange'
 }
 
-var heights = {
-}
+var heights = {}
 
-map.on('load', function() {
+map.on('load', function () {
 
-    var yields_dots = GetJson('js/yields.geojson');
-    const coll = [];
-    for (let f of yields_dots.features) {
-        coll.push(turf.buffer(f, 50, {
-            units: 'meters'
-        }));
-    }
-    var yields = turf.featureCollection(coll);
     //set up data sources
     map.addSource('yields', {
             'type': 'geojson',
-            'data': yields
-        })
-        .addSource('yields_dots', {
-            'type': 'geojson',
-            'data': yields_dots
+            'data': emptyGeojson
         })
         .addSource('highlight', {
             'type': 'geojson',
@@ -62,104 +50,114 @@ map.on('load', function() {
         })
 
 
+
     //set up data layers
     map
-    .addLayer({
-        'id': 'yields',
-        'type': 'fill-extrusion',
-        'source': 'yields',
-        'paint': {
-            'fill-extrusion-color': [ 'interpolate', ['exponential', 0], ['get', 'yield'], 2, colors.dark, 10, colors.light ],
-            'fill-extrusion-base': 0,
-            'fill-extrusion-height': [ 'interpolate', ['exponential', 0], ['get', 'yield'], 0, 0, 5, 300, 10, 1000 ],
-            //'fill-opacity-transition': {'duration':1000},
-            'fill-extrusion-opacity': 1,
-        },
-        'paint.tilted': {
-            'fill-extrusion-opacity': 0.9
-        }
-    }, 'airport-label')
-    .addLayer({
-        'id': 'radiusHighlight',
-        'type': 'fill-extrusion',
-        'source': 'radiusHighlight',
-        'paint': {
-            'fill-extrusion-height': {
-                "stops": [
-                    [0, 0],
-                    [1450000, 0]
-                ],
-                "property": "yield",
-                "base": 0
+        .addLayer({
+            'id': 'yields',
+            'type': 'fill-extrusion',
+            'source': 'yields',
+            'paint': {
+                'fill-extrusion-color': {
+                    "property": 'yield', 
+                    "stops": [
+                        [0, colors.dark], 
+                        [4.99, colors.dark], 
+                        [5, colors.average], 
+                        [9.99, colors.average],
+                        [10, colors.light]
+                    ]
+                },// [ 'interpolate', ['steps'], [ '*', 10, ['get', 'yield']], 1, colors.dark, 50, colors.average, 100, colors.light ],
+                'fill-extrusion-base': 0,
+                'fill-extrusion-height': globalscale,
+                //'fill-opacity-transition': {'duration':1000},
+                'fill-extrusion-opacity': 1,
             },
-            'fill-extrusion-color': {
-                "stops": [
-                    [0, '#e53e0e'],
-                    [145000, '#f1f075']
-                ],
-                "property": "yield",
-                "base": 1
-            },
-            'fill-extrusion-opacity': 1
-        },
-        'paint.tilted': {
-            'fill-extrusion-height': {
-                "stops": [
-                    [0, 10],
-                    [20, 4000]
-                ],
-                "property": "yield",
-                "base": 1
+            'paint.tilted': {
+                'fill-extrusion-opacity': 0.9
             }
-        }
-    }, 'water').addLayer({
-        'id': 'highlighted_fill',
-        'type': 'line',
-        'source': 'highlight',
-        'paint': {
-            'line-color': colors.highlight
-        },
-        'paint.tilted': {
-            'line-opacity': 0
-        }
-    }, 'airport-label')
-    .addLayer({
-        'id': 'highlighted_extrusion',
-        'type': 'fill-extrusion',
-        'source': 'highlight',
-        'paint': {
-            'fill-extrusion-color': colors.highlight,
-            'fill-extrusion-base': 0,
-            'fill-extrusion-height': {
-                "stops": [
-                    [0, 10],
-                    [20, 3000]
-                ],
-                "property": "yield",
-                "base": 1
+        }, 'airport-label')
+        .addLayer({
+            'id': 'radiusHighlight',
+            'type': 'fill-extrusion',
+            'source': 'radiusHighlight',
+            'paint': {
+                'fill-extrusion-height': {
+                    "stops": [
+                        [0, 0],
+                        [1450000, 0]
+                    ],
+                    "property": "yield",
+                    "base": 0
+                },
+                'fill-extrusion-color': {
+                    "stops": [
+                        [0, '#e53e0e'],
+                        [145000, '#f1f075']
+                    ],
+                    "property": "yield",
+                    "base": 1
+                },
+                'fill-extrusion-opacity': 1
             },
-            'fill-extrusion-opacity': 0
-        },
-        'paint.tilted': {
-            'fill-extrusion-opacity': 0.5
-        }
-    }, 'airport-label');
-})
+            'paint.tilted': {
+                'fill-extrusion-height': {
+                    "stops": [
+                        [0, 10],
+                        [20, 4000]
+                    ],
+                    "property": "yield",
+                    "base": 1
+                }
+            }
+        }, 'water').addLayer({
+            'id': 'highlighted_fill',
+            'type': 'line',
+            'source': 'highlight',
+            'paint': {
+                'line-color': colors.highlight
+            },
+            'paint.tilted': {
+                'line-opacity': 0
+            }
+        }, 'airport-label')
+        .addLayer({
+            'id': 'highlighted_extrusion',
+            'type': 'fill-extrusion',
+            'source': 'highlight',
+            'paint': {
+                'fill-extrusion-color': colors.highlight,
+                'fill-extrusion-base': 0,
+                'fill-extrusion-height': {
+                    "stops": [
+                        [0, 10],
+                        [20, 3000]
+                    ],
+                    "property": "yield",
+                    "base": 1
+                },
+                'fill-extrusion-opacity': 0
+            },
+            'paint.tilted': {
+                'fill-extrusion-opacity': 0.5
+            }
+        }, 'airport-label');
+});
 
 /* adding interactivity on layer*/
-map.on('load', function() {
+map.on('load', function () {
     map.getCanvas().style.cursor = 'context-menu';
     // Create a popup, but don't add it to the map yet.
     var popup = new mapboxgl.Popup({
         closeButton: true,
         closeOnClick: true
     });
-    map.on('mouseenter', 'yields', function(e) {
+    map.on('mouseenter', 'yields', function (e) {
         // Change the cursor style as a UI indicator.
         map.getCanvas().style.cursor = 'pointer';
         var coordinates = e.features[0].geometry.coordinates[0][0];
         var title = e.features[0].properties.name;
-        var imgLink = e.features[0].properties.imgLink;
+        var imgLink = e.features[0].properties.image;
         var url = e.features[0].properties.url;
         var address = e.features[0].properties.address;
         var YieldVal = parseFloat(e.features[0].properties.yield);
@@ -175,10 +173,10 @@ map.on('load', function() {
         }
         popup.setLngLat(coordinates)
             .setHTML('<div style="min-Width:250px;height:auto;background-color: #333333;"><a style="text-decoration: none;" target="_blank" href="' + url + '"><h3>' + title + '</h3><h4>' + address +
-            '</h4><p><b>Yield Value: </b>' + YieldVal + '% </p></a></div>')
+                '</h4><p><b>Yield Value: </b>' + YieldVal + '% </p></a></div>')
             .addTo(map);
     });
-    map.on('mouseleave', 'yields', function() {
+    map.on('mouseleave', 'yields', function () {
         $('.mapboxgl-popup-content').mouseover(function () {
             popup.addTo(map);
         });
@@ -190,6 +188,15 @@ map.on('load', function() {
     });
 
 
+    
+    var ll = map.getBounds();
+    var lon_min = ll.getWest();
+    var lat_min = ll.getSouth();
+    var lon_max = ll.getEast();
+    var lat_max = ll.getNorth();
+    updateViewport(lon_min, lat_min, lon_max, lat_max);
+    setScale(0);
+
 });
 
 map.on('click', 'yields', function (e) {
@@ -199,17 +206,55 @@ map.on('click', 'yields', function (e) {
 });
 
 //set heights of the buildings
-document.querySelector('#slider').addEventListener('change', function(){
-      setScale(parseInt(this.value));
-  });
+document.querySelector('#slider').addEventListener('change', function () {
+    setScale(parseInt(this.value));
+});
 
-function setScale(max){
-    max = 40-max;
-    if (_3d==true){
-        document.querySelector('#max').innerHTML = max+'+';
-        map.setPaintProperty('yields','fill-extrusion-height',{"stops": [[0,40],[max,4500],], "property": "yield", "base": 1})
+var globalscale = [ 'interpolate', ['exponential', 1], ['get', 'yield'], 0, 0, 5, 300, 10, 4500 ];
+
+function setScale(max) {
+    max = 40 - max;
+    if (_3d == true) {
+        document.querySelector('#max').innerHTML = max + '+';
+
+        globalscale = [ 'interpolate', ['exponential', 1], ['get', 'yield'], 0, 0, 5, 300, max, 4500 ]
+
+        map.setPaintProperty('yields', 'fill-extrusion-height', globalscale)
     }
-  }
+}
+
+
+var ffrom = 0;
+document.querySelector('#filter_from').addEventListener('change', function () {
+    ffrom = parseFloat(this.value);
+    document.querySelector('#minval').innerHTML = ffrom;
+    setFilter(ffrom, fto);
+});
+var fto = 100;
+//document.querySelector('#filter_to').addEventListener('change', function () {
+//    fto = parseFloat(this.value);
+//    document.querySelector('#maxval').innerHTML=fto;
+//    setFilter(ffrom, fto);
+//});
+//
+function setup(from, to) {
+    ffrom = from;
+    fto = to;
+    document.querySelector('#filter_to').value = to;
+    document.querySelector('#filter_from').value = from;
+    document.querySelector('#minval').innerHTML = ffrom;
+    document.querySelector('#maxval').innerHTML = fto;
+    setFilter(ffrom, fto);
+}
+
+function setFilter(from, to) {
+    var new_Filter = ["all"];
+    new_Filter.push([">=", 'yield', from]);
+    if (to < 20)
+        new_Filter.push(["<", 'yield', to]);
+    map.setFilter('yields', new_Filter);
+}
+
 
 // add geocoder to mini map
 var geocoder = new MapboxGeocoder({
@@ -219,28 +264,57 @@ var geocoder = new MapboxGeocoder({
 document.getElementById('geocoder').appendChild(geocoder.onAdd(map));
 
 //mouse move evebt for selecting top ten records
-map.on('moveend', function() {
+map.on('moveend', function () {
     var ll = map.getBounds();
     var lon_min = ll.getWest();
     var lat_min = ll.getSouth();
     var lon_max = ll.getEast();
     var lat_max = ll.getNorth();
-    getTopTen1(lon_min, lat_min, lon_max, lat_max);
+    updateViewport(lon_min, lat_min, lon_max, lat_max);
+
+
 });
 
 //getting top ten records between lang/lat of four corners
-function getTopTen1(minx, miny, maxx, maxy){
-    myUrl = 'main.php?qry=getTopTen1&minx='+minx+'&miny='+miny+'&maxx='+maxx+'&maxy='+maxy;
+function updateViewport(minx, miny, maxx, maxy) {
+    myUrlm = 'geo.php?minx=' + minx + '&miny=' + miny + '&maxx=' + maxx + '&maxy=' + maxy;
+    $.ajax({
+        url: myUrlm,
+        type: 'GET',
+        dataType: "text json",
+        success: function (res) {
+            var yields_dots = res;
+            const coll = [];
+            if (yields_dots.features){
+                for (let f of yields_dots.features) {
+                    coll.push(turf.buffer(f, 50, {
+                        units: 'meters'
+                    }));
+                }
+                var yields = turf.featureCollection(coll);
+                var s = map.getSource('yields');
+                if (s){
+                    s.setData(yields);    
+                } else {
+                    setTimeout(map.getSource('yields').setData(yields), 300);
+                }
+            }
+        }
+    });
+    myUrl = 'main.php?qry=getTopTen1&minx=' + minx + '&miny=' + miny + '&maxx=' + maxx + '&maxy=' + maxy;
     $.ajax({
         url: myUrl,
         type: 'GET',
         dataType: "text json",
         success: function (res) {
-            if (res!=""){
-                res.sort(function(a, b){
+            if (res != "") {
+                res.sort(function (a, b) {
                     return a.y - b.y;
                 });
-                setTimeout(function(){loadbars(res);},200);
+                setTimeout(function () {
+                    loadbars(res);
+                    repImage(res[0].url);
+                }, 200);
             }
         }
     });
@@ -255,36 +329,37 @@ function loadbars(myData) {
             interval: 1
         },
         theme: "dark1",
-        data: [
-            {
-                mouseover: function(e){
-                    repImage(e.dataPoint.url);//url
-                    //new mapboxgl.Marker({color: 'red'});
-                },
-                click: function(e){
-                     map.flyTo({center: [e.dataPoint.lang,e.dataPoint.lat],zoom:17});
-                     //window.open(e.dataPoint.pUrl);//pUrl
-                },
-                type: "bar",
-                color: "#4f81bc",
-                indexLabelFontWeight: 300,
-                indexLabelFontFamily: "Verdana",
-                toolTipContent: "<b>{label}</b><br>Yield: {y}%",//label //y
-                dataPoints: myData
-           },
-       ]
+        data: [{
+            mouseover: function (e) {
+                repImage(e.dataPoint.url); //url
+                //new mapboxgl.Marker({color: 'red'});
+            },
+            click: function (e) {
+                map.flyTo({
+                    center: [e.dataPoint.lang, e.dataPoint.lat],
+                    zoom: 17
+                });
+                //window.open(e.dataPoint.pUrl);//pUrl
+            },
+            type: "bar",
+            color: "#4f81bc",
+            indexLabelFontWeight: 300,
+            indexLabelFontFamily: "Verdana",
+            toolTipContent: "<b>{label}</b><br>Yield: {y}%", //label //y
+            dataPoints: myData
+        }, ]
     });
     chart.render();
 }
 
-function repImage(imgLink){
+function repImage(imgLink) {
     var image = document.getElementById("imgCorner");
     image.src = imgLink;
 }
 
 //adding Cities To miniMap
 var greatPlaces = GetJson('./assets/greatPlaces.json');
-greatPlaces.features.forEach(function(city, index) {
+greatPlaces.features.forEach(function (city, index) {
     // create the popup
     var popup = new mapboxgl.Popup({
             closeButton: false
@@ -315,7 +390,7 @@ function jumpToCity(index) {
 }
 
 // minimap flyTo interactivity
-minimap.on('mouseup', function(e) {
+minimap.on('mouseup', function (e) {
     var coords = (minimap.unproject(e.point))
     map.jumpTo({
         center: coords
@@ -325,7 +400,7 @@ minimap.on('mouseup', function(e) {
 // show/hide labels
 function toggleLabels(truthiness) {
     var visibility = truthiness ? 'visible' : 'none'
-    map.style.stylesheet.layers.forEach(function(layer) {
+    map.style.stylesheet.layers.forEach(function (layer) {
         if (layer.type === 'symbol') map.setLayoutProperty(layer.id, 'visibility', visibility)
     })
 }
@@ -333,19 +408,26 @@ function toggleLabels(truthiness) {
 // show/hide roads
 function toggleRoads(truthiness) {
     var visibility = truthiness ? 'visible' : 'none'
-    map.style.stylesheet.layers.forEach(function(layer) {
+    map.style.stylesheet.layers.forEach(function (layer) {
         if (layer.type === 'line') map.setLayoutProperty(layer.id, 'visibility', visibility)
     })
 }
 
 // map tilt functionality
 function tilt(eh) {
-    if (eh == true){
-        _3d=true;
-        map.setPaintProperty('yields','fill-extrusion-height',{"stops": [[0,40],[15,4500],], "property": "yield", "base": 1})
+    if (eh == true) {
+        _3d = true;
+        map.setPaintProperty('yields', 'fill-extrusion-height', globalscale);
     } else {
-        _3d=false;
-        map.setPaintProperty('yields','fill-extrusion-height',{"stops": [[0,1],[0,1],], "property": "yield", "base": 1})
+        _3d = false;
+        map.setPaintProperty('yields', 'fill-extrusion-height', {
+            "stops": [
+                [0, 1],
+                [0, 1],
+            ],
+            "property": "yield",
+            "base": 1
+        })
     }
     var state = !eh ? {
         pitch: 0,
@@ -383,23 +465,3 @@ function setInspector(mode) {
 
 var _3d = true;
 
-
-function setFilter(from, to) {
-    //alert(from + ' , ' + to)
-    //map.setFilter('yields',["<=", 'yield', to]);
-    var myID = $(this).attr('for');
-    var myDiv = $(this).parent();
-    $(myDiv).find('input').each(function(e){
-        $(this).removeAttr('checked');
-    });
-    $('#'+myID).attr('checked','checked');
-    //map.setFilter('yields',[">=", 'yield', from],["<=", 'yield', to]);
-    if (to==5){
-        map.setFilter('yields',["<", 'yield', to]);
-    }else if (from==5 && to==10) {
-        var new_Filter = ["all",[">=", 'yield', from],["<=", 'yield', to]];
-        map.setFilter('yields',new_Filter);
-    }else if (from==10) {
-        map.setFilter('yields',[">", 'yield', from]);
-    }
-}

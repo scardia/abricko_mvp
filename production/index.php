@@ -1,9 +1,11 @@
 <?php
 session_start();
+$city=$_REQUEST['city'];
 include('assets/config.nic.php');
 if (!isset($_SESSION['user'])) {
-    header("location: login.php");
+    header("location: login.php?city=".$city);
 }
+
 /*
 ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
@@ -14,7 +16,7 @@ $row=mysqli_fetch_array($result, MYSQLI_ASSOC);
 $userName= ucwords($row[user]);
 //updateZipCode();
 //updateYieldVal();
-//$data= getGeoJson();
+
 //$myfile = fopen("js/yields.geojson", "w") or die("Unable to open file!");
 //fwrite($myfile, $data);
 //fclose($myfile);
@@ -253,7 +255,7 @@ $userName= ucwords($row[user]);
             }
             .mapboxgl-popup-content {
               background:#333333;
-              padding:2px;
+              padding:4px 8px;
             }
             .mapboxgl-ctrl-geocoder{
                 /*margin-right:550% !important;*/
@@ -268,6 +270,9 @@ $userName= ucwords($row[user]);
               z-index : 1000;
             }
 
+            #imgCorner{
+              object-fit: cover;
+            }
             
 input[type=range],
 input[type=range]::-webkit-slider-thumb {
@@ -340,9 +345,18 @@ input[type=range]:disabled { cursor: default; }
                 left:0px;
               }
             }
+
+            .cornerbanner{
+              background-color: rgba(0,0,0, 0.5);
+              height: 50px;
+              width: 100%;
+              position:absolute;
+              bottom:0px;
+              margin:0;
+            }
         </style>
 
-<body class="nav-md" style="background-color:#2A2A2A;">
+<body class="nav-sm" style="background-color:#2A2A2A;">
   <div class="container body">
     <div class="main_container">
 
@@ -389,25 +403,42 @@ input[type=range]:disabled { cursor: default; }
               </div>
 
               <fieldset class="pad1 section">
-                <span class="col12 fl small uppercase label quiet" style="line-height:18px">Filter selection:</span>
-                <div class="col12">
-                  <span class="col4 small uppercase label quiet" style="line-height:18px">Min:</span>
+                <span class="fl small uppercase label quiet" style="line-height:18px">yields</span>
+                <span class="fl small uppercase label quiet" style="line-height:18px">
+                <span id="minval">0</span>
+                  <span>%</span>
+                  </span>
+
+                <!--<div class="col12 rounded-toggle fr" style="clear:both;">
+                  <input id='filters_low' type='radio' name='filters' value='low'>
+                  <label for='filters_low' class='col4 center' onclick='setup(0,5)'>&lt; 5%</label>
+                  <input id='filters_med' type='radio' name='filters' value='medium'>
+                  <label for='filters_med' class='col4 center' onclick='setup(5,10)'>5% - 10%</label>
+                  <input id='filters_hi' type='radio' name='filters' value='high'>
+                  <label for='filters_hi' class='col4 center' onclick='setup(10,25)'>&gt; 10%</label>
+                </div>-->
+                <!--<div class="col12" style="clear:both;">
+                  <span class="small uppercase label quiet" style="line-height:18px">Min</span>-->
                   <div class='col8 fr'>
-                    <input type="range" value="0" min="0" max="25" step="0.5" id="filter_from" class="filter col12">
+                    <input type="range" value="0" min="0" max="25" step="0.5" id="filter_from" class="filter">
                   </div>
-                </div>
-                <div class="col12">
-                  <span class="col4 small uppercase label quiet" style="line-height:18px">Max:</span>
-                  <div class='col8 fr'>
+                <!--</div>-->
+                
+                <!--<div class="col12" style="clear:both;">
+                  <span class="small uppercase label quiet" style="line-height:18px">Max</span>
+                  <span class="small uppercase label quiet" style="line-height:18px" id="maxval"></span>
+                  <span class="small uppercase label quiet" style="line-height:18px">%</span>
+                  <div class='col8 fr '>
                     <input type="range" value="15" min="0" max="25" step="0.5" id="filter_to" class="filter col12">
                   </div>
-                </div>
+                </div>-->
+
               </fieldset>
 
               <fieldset class='pad1 section'>
-                <span class='fl small uppercase label quiet' style='line-height:18px'>adjust Scale</span>
+                <span class='fl small uppercase label quiet' style='line-height:18px'>Adjust Scale</span>
                 <div class='col8 fr'>
-                  <input type="range" value="15" min="0" max="25" step="0.5" id="slider" class="col12">
+                  <input type="range" value="0" min="0" max="25" step="0.5" id="slider" class="col12">
                 </div>
               </fieldset>
             </div>
@@ -424,6 +455,7 @@ input[type=range]:disabled { cursor: default; }
             </div>
           </div>
           <div class="col-md-09 col-sm-09 col-xs-9 tile_stats_count" style="height: 60vh;border:1px solid black;">
+
             <!--min-height:500px;-->
             <div id='map'></div>
             <div id='tooltip' class='dark'>
@@ -439,15 +471,15 @@ input[type=range]:disabled { cursor: default; }
             </div>
           </div>
         </div>
-        <div class="row" style="height: 39vh;">
+        <div class="row" style="height: 34vh;">
           <div class="row col-12 col-md-12 p-0" style="height: 100%;background-color:#2A2A2A;margin:0px">
             <!--min-height:260px;-->
             <div class="col-8 col-md-8" id="" style="float:left;background-color:#2A2A2A;padding-left: 0px;">
-              <div class="title uppercase">Top 10 yelds</div>
-              <div class="col-12 col-md-12" style="height: 36vh;" id="chartContainer"></div>
+              <div class="title uppercase label strong" style="padding-bottom: 0; margin-bottom: -10px;"><h2>Top yields</h2></div>
+              <div class="col-12 col-md-12" style="height: 34vh;" id="chartContainer"></div>
             </div>
             <div class="col-4 col-md-4" style="height: 100%;border:0px solid black;padding-right: 0px; float:right;" id='rightCorner'>
-              <img id='imgCorner' src='' alt='Property Image' style="width:100%;height:100%;" />
+              <img id='imgCorner' src='assets/abricko_logo_trans.png' alt='Property Image' style="min-width:100%; min-height:100%;" />
             </div>
           </div>
           <script src="assets/canvasjs.min.js"></script>
@@ -466,8 +498,17 @@ input[type=range]:disabled { cursor: default; }
   <script src="js/turf.js"></script>
   <script src='js/app.js' rel='stylesheet'></script>
   <script>
-    setFilter(0, 5);
-    tilt(false);
+      var city = '<?php echo $city; ?>';
+      if (city!=''){
+        var url='';
+        url='https://api.mapbox.com/geocoding/v5/mapbox.places/'+ encodeURI(city) +'.json?access_token=pk.eyJ1IjoiYWJyaWNrbyIsImEiOiJjanJhaGxlYzcwaG40NDRsaHhocXdocDVhIn0.hVzJBL6S1alSJ_-bbKc9QQ';
+        var data=GetJson(url);
+        var langLat =(data['features'][0]['center']);
+        map.flyTo({
+            center: langLat,
+            zoom: 11
+        });
+      }
   </script>
 </body>
 

@@ -12,15 +12,18 @@ ini_set('error_reporting', E_ALL);
 $con=mysqli_connect('localhost', 'root', '', 'properties');*/
 //$con=mysqli_connect(db_host, db_user, db_password, db_database);
 // Check connection
+
+if (!isset($_REQUEST['city']) || $_REQUEST['city']=='') {
+    $city=$_REQUEST['city'];
+}
+
 if (mysqli_connect_errno()) {
     die("Failed to connect to MySQL: " . mysqli_connect_error());
 }
-echo "hello1";
 Requests::register_autoloader();
 $session = new Requests_Session(myWebsite);
 $session->headers['X-ContactAuthor'] = 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8';
 $session->useragent = myAgent;
-echo "hello2";
 getListingUrls();
 /*
 $mydata=getHTMLusingCURL('https://www.rightmove.co.uk/property-for-sale/search.html');
@@ -34,7 +37,7 @@ if ($load) {
                 if (!is_null($aNode->item(0))) {
                     $Link=$aNode->item(0)->getAttribute('href');
                     if(strpos('me'.$Link, 'https://www.rightmove.co.uk/uk-property-search')>0){
-                        echo "<br>".$Link;
+                        echo "\n".$Link;
                         //myRegions($Link);
                         getListingData();
                     }
@@ -69,11 +72,15 @@ function myRegions($myUrl)
 function getListingUrls()
 {
     $type=0;
-    $myUrls=readMyFile("myRegionUrl.txt");
+    $rootDir = dirname(__FILE__) . DIRECTORY_SEPARATOR;
+    $myUrls=readMyFile($rootDir."myRegionUrl.txt");
     $myUrl = explode("\n", $myUrls);
-    $total= count($myUrl)-1;
-    for ($i=0;$i<=$total;$i++) {
+    $total= readMyFile($rootDir."startUrl.txt");
+    for ($i=$total;$i>=0;$i--) {
+        file_put_contents('startUrl.txt', $i);
         $pUrl= str_ireplace(myWebsite, '', $myUrl[$i]);
+        echo "\nFeching records from the url No.---> ".$i;
+        echo "\nFeching records from the url -----> ".$pUrl;
         $mydata2=chkError($pUrl);
         $doc2=new DOMDocument();
         $load2 = @$doc2->loadHTML($mydata2);
@@ -82,13 +89,11 @@ function getListingUrls()
             if (!is_null($pNode)) {
                 $pNode1=$pNode->getElementsByTagName('span');
                 if (!is_null($pNode1)) {
-                    echo "<br> Tot records are----->".$totRecords=$pNode1->item(0)->nodeValue;
-                    doFlush();
+                    $totRecords=$pNode1->item(0)->nodeValue;
                 }
                 foreach ($doc2->getElementsByTagName('input') as $pNode2) {
                     if ((strpos('me' .$pNode2->getAttribute('name'), 'locationIdentifier') > 0)) {
-                        echo "<br> Value is----->".$locationId=$pNode2->getAttribute('value');
-                        doFlush();
+                        $locationId=$pNode2->getAttribute('value');
                     }
                 }
                 if (stripos('me'.$pUrl, 'sale')) {
@@ -104,27 +109,30 @@ function getListingUrls()
 //----------------------------------------------------------------------------------------------------------------
 function getListingData($locationId, $totRecords, $type)
 {
-    echo "<br> tot records are 12   --->".$totRecords;
+    //echo "\n tot records are 12   --->".$totRecords;
     $totRecords=str_replace(",", "", $totRecords);
-    //echo "<br> totRecords divided by 24  ---->".$totRecords/24;
+    //echo "\n totRecords divided by 24  ---->".$totRecords/24;
     //echo ceil($totRecords/24);
     $totPages=ceil($totRecords/24);
-    echo "<br> tot pages are --  ".$totPages;
+    echo "\n tot pages are --  ".$totPages;
     $y=0;
+    if ($totPages>50) {
+        $totPages=50;
+    }
     for ($i=0;$i<=$totPages;$i++) {
         if ($type==0) {
-            echo "<br> Getting Record from Rent listings";
-            doFlush();
+            echo "\n Getting Record from Rent listings ---------->";
+            //doFlush();
             echo $myUrl='https://www.rightmove.co.uk/api/_search?locationIdentifier='.$locationId.'&numberOfPropertiesPerPage=24&radius=0.0&sortType=6&index='.$y.'&viewType=LIST&channel=RENT&areaSizeUnit=sqft&isFetching=false';
-            doFlush();
+        //doFlush();
         } else {
-            echo "<br> Getting Record from sale listings";
-            doFlush();
+            echo "\n Getting Record from sale listings ---------->";
+            //doFlush();
             echo $myUrl='https://www.rightmove.co.uk/api/_search?locationIdentifier='.$locationId.'&numberOfPropertiesPerPage=24&radius=0.0&sortType=2&index='.$y.'&viewType=LIST&channel=BUY&areaSizeUnit=sqft&isFetching=false';
-            doFlush();
+            //doFlush();
         }
         $mydata3=getHTMLusingCURL($myUrl);
-        echo "<br>";
+        echo "\n";
         //file_put_contents($y.'.txt', $mydata3, FILE_APPEND | LOCK_EX);
         if ($mydata3!="") {
             $arr = json_decode($mydata3, true);
@@ -139,31 +147,31 @@ function getListingData($locationId, $totRecords, $type)
                         $bedrooms=$val1;
                     }
                     if (trim($key1) == 'displayAddress') {
-                        echo "</br> Address -->".$address=$val1;
+                        $address=$val1;
                         $str1=explode(",", $address);
                         $sAddress='';
                         $city='';
                         $zipcode='';
                         if (count($str1)>0) {
                             if (count($str1)==1) {
-                                //echo "str===1";echo "<br> sAddress is".
+                                //echo "str===1";echo "\n sAddress is".
                                 $sAddress=$str1[0];
                             } elseif (count($str1)==2) {
-                                //echo "str===2";echo "<br> sAddress is".
+                                //echo "str===2";echo "\n sAddress is".
                                 $sAddress=$str1[0];
-                                echo "<br> City is".$city=$str1[1];
+                                $city=$str1[1];
                             } elseif (count($str1)==3) {
-                                //echo "str===3";echo "<br> sAddress is".echo "<br> City is".echo "<br> zipcode is ".
+                                //echo "str===3";echo "\n sAddress is".echo "\n City is".echo "\n zipcode is ".
                                 $sAddress=$str1[0];
                                 $city=$str1[1];
                                 $zipcode=$str1[2];
                             } elseif (count($str1)==4) {
-                                //echo "str===4";echo "<br> sAddress is".echo "<br> City is".echo "<br> zipcode is ".
+                                //echo "str===4";echo "\n sAddress is".echo "\n City is".echo "\n zipcode is ".
                                 $sAddress=$str1[0].", ".$str1[1];
                                 $city=$str1[2];
                                 $zipcode=$str1[3];
                             } elseif (count($str1)==5) {
-                                //echo "str===4";echo "<br> sAddress is".echo "<br> City is".echo "<br> zipcode is ".
+                                //echo "str===4";echo "\n sAddress is".echo "\n City is".echo "\n zipcode is ".
                                 $sAddress=$str1[0].", ".$str1[1].", ".$str1[2];
                                 $city=$str1[3];
                                 $zipcode=$str1[4];
@@ -225,18 +233,15 @@ function insertData($title, $address, $sAddress, $city, $zipcode, $latitude, $lo
             $m2Price=((int)($price))/(int)($beds);
         }
     }
-    echo "type is --->".$type;
+    echo "\n-----------property Title  is --->".$title;
+    echo "\n-----------property url  is --->".$myUrl;
     //die();
     if ($type==1) {
-        doFlush();
-        echo "<br>qry -->".$qry1="INSERT ignore INTO `st_listings_sale`(`title`, `address`, `street`, `city`, `zipcode`, `latitude`, `longitude`, `bedRoom`, `price`,`m2Price`, `imgLink`, `url`,`provider`) VALUES ('".trim($title)."','".trim($address)."','".trim($sAddress)."','".trim($city)."','".trim($zipcode)."','".trim($latitude)."','".trim($longitude)."','".trim($beds)."','".trim($price)."','".trim($m2Price)."','".trim($imgLink)."','".trim($myUrl)."','".myWebsite."')";
-        doFlush();
+        $qry1="INSERT ignore INTO `st_listings_sale`(`title`, `address`, `street`, `city`, `zipcode`, `latitude`, `longitude`, `bedRoom`, `price`,`m2Price`, `imgLink`, `url`,`provider`) VALUES ('".trim($title)."','".trim($address)."','".trim($sAddress)."','".trim($city)."','".trim($zipcode)."','".trim($latitude)."','".trim($longitude)."','".trim($beds)."','".trim($price)."','".trim($m2Price)."','".trim($imgLink)."','".trim($myUrl)."','".myWebsite."')";
     } elseif ($type==0) {
-        doFlush();
-        echo "<br>qry -->".$qry1="INSERT ignore INTO `st_listings_rent`(`title`, `address`, `street`, `city`, `zipcode`, `latitude`, `longitude`, `bedRoom`, `price`,`m2Price`, `imgLink`, `url`,`provider`) VALUES ('".trim($title)."','".trim($address)."','".trim($sAddress)."','".trim($city)."','".trim($zipcode)."','".trim($latitude)."','".trim($longitude)."','".trim($beds)."','".trim($price)."','".trim($m2Price)."','".trim($imgLink)."','".trim($myUrl)."','".myWebsite."')";
-        doFlush();
+        $qry1="INSERT ignore INTO `st_listings_rent`(`title`, `address`, `street`, `city`, `zipcode`, `latitude`, `longitude`, `bedRoom`, `price`,`m2Price`, `imgLink`, `url`,`provider`) VALUES ('".trim($title)."','".trim($address)."','".trim($sAddress)."','".trim($city)."','".trim($zipcode)."','".trim($latitude)."','".trim($longitude)."','".trim($beds)."','".trim($price)."','".trim($m2Price)."','".trim($imgLink)."','".trim($myUrl)."','".myWebsite."')";
     }
-    echo "<hr>";
+    //echo "<hr>";
     mysqli_query($con, $qry1);
 }
 //----------------------------------------------------------------------------------------------------------------

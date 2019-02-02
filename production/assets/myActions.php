@@ -52,7 +52,8 @@ function getGeoJson()
         while ($row = $result->fetch_array()) {
             $y=doubleval(number_format(($row['yieldValue']), 2, '.', ''));
             $langLat='['.$row['latitude'].','.$row['longitude'].']';
-            $data[] = array("type"=>"Feature","geometry"=>array("type"=>"Point","coordinates"=> array((float) $row['longitude'],(float) $row['latitude'] )),"properties"=>array("name"=>$row['title'],"id"=>$row['id'],"yield"=>$y,"image"=>$row['imgLink']));
+            $data[] = array("type"=>"Feature","geometry"=>array("type"=>"Point","coordinates"=> array((float) $row['longitude'],(float) $row['latitude'] )),
+                "properties"=>array("name"=>$row['title'],"id"=>$row['id'],"yield"=>$y,"image"=>$row['imgLink'], "url"=>$row['url'],));
         }
     }
     $data1=array("type"=> "FeatureCollection","features"=>$data);//'{"type": "FeatureCollection","features": '.$data1.'}';

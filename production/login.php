@@ -1,6 +1,7 @@
 <?php
 // Start the session
 session_start();
+$city=$_REQUEST['city'];
 include('assets/config.nic.php');
 if (isset($_POST['submit'])) { //print_r($_POST['submit']);
     $email = trim($_POST['user']);
@@ -13,7 +14,7 @@ if (isset($_POST['submit'])) { //print_r($_POST['submit']);
     if (mysqli_num_rows($result) == 1) {
         $_SESSION['user'] = $email; // Initializing Session
         $_SESSION['id']=$row[id];
-        header("location: . "); // Redirecting To Other Page
+        header("location: .?city=".$city); // Redirecting To Other Page
     } else {
         $error = "Incorrect username or password / Verify Your Email Address";
         //echo "<script type='text/javascript'>alert('$error');</script>";
@@ -25,56 +26,61 @@ if (isset($_POST['submit'])) { //print_r($_POST['submit']);
 <!DOCTYPE html>
 <html lang="en">
 <head>
-	<title>Abricko Login</title>
-	<meta charset="UTF-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Abricko Login</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
 <!--===============================================================================================-->
-	<link rel="icon" type="image/png" href="images/icons/favicon.ico"/>
+  <link rel="icon" type="image/png" href="images/icons/favicon.ico"/>
 <!--===============================================================================================-->
-	<link rel="stylesheet" type="text/css" href="vendor/bootstrap/css/bootstrap.min.css">
+  <link rel="stylesheet" type="text/css" href="vendor/bootstrap/css/bootstrap.min.css">
 <!--===============================================================================================-->
-	<link rel="stylesheet" type="text/css" href="fonts/font-awesome-4.7.0/css/font-awesome.min.css">
+  <link rel="stylesheet" type="text/css" href="fonts/font-awesome-4.7.0/css/font-awesome.min.css">
 <!--===============================================================================================-->
-	<link rel="stylesheet" type="text/css" href="fonts/iconic/css/material-design-iconic-font.min.css">
+  <link rel="stylesheet" type="text/css" href="fonts/iconic/css/material-design-iconic-font.min.css">
 <!--===============================================================================================-->
-	<link rel="stylesheet" type="text/css" href="vendor/animate/animate.css">
+  <link rel="stylesheet" type="text/css" href="vendor/animate/animate.css">
 <!--===============================================================================================-->
-	<link rel="stylesheet" type="text/css" href="vendor/css-hamburgers/hamburgers.min.css">
+  <link rel="stylesheet" type="text/css" href="vendor/css-hamburgers/hamburgers.min.css">
 <!--===============================================================================================-->
-	<link rel="stylesheet" type="text/css" href="vendor/animsition/css/animsition.min.css">
+  <link rel="stylesheet" type="text/css" href="vendor/animsition/css/animsition.min.css">
 <!--===============================================================================================-->
-	<link rel="stylesheet" type="text/css" href="vendor/select2/select2.min.css">
+  <link rel="stylesheet" type="text/css" href="vendor/select2/select2.min.css">
 <!--===============================================================================================-->
-	<link rel="stylesheet" type="text/css" href="vendor/daterangepicker/daterangepicker.css">
+  <link rel="stylesheet" type="text/css" href="vendor/daterangepicker/daterangepicker.css">
 <!--===============================================================================================-->
-	<link rel="stylesheet" type="text/css" href="css/util.css">
-	<link rel="stylesheet" type="text/css" href="css/main.css">
+  <link rel="stylesheet" type="text/css" href="css/util.css">
+  <link rel="stylesheet" type="text/css" href="css/main.css">
 <!--===============================================================================================-->
 </head>
 <style>
 .login100-form-btn:hover{
-	border-radius: 25px;
-	background-color: white;
-	border: 2px solid #36BBAD;;
-	color: #36BBAD;
-	cursor: pointer;
+   border-radius: 25px;
+   background-color: white;
+   border: 2px solid #36BBAD;;
+   color: #36BBAD;
+   cursor: pointer;
 }
 ::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
-  color: red;
-  opacity: 1; /* Firefox */
+   color: red;
+   opacity: 1; /* Firefox */
 }
 </style>
-<body>
+<body style="background-image:url(images/bgimage.png); background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;">
 
 	<div class="limiter">
 		<div class="container-login100">
 			<div class="wrap-login100">
 				<form class="login100-form validate-form" method="post" action="">
-					<span class="login100-form-title p-b-26">
+					<span class="login100-form-title p-b-08">
 						Welcome
 					</span>
+					<span class="login100-form-title p-b-08">
+						to
+					</span>
 					<span class="login100-form-title p-b-48">
-						<i class="zmdi zmdi-font"></i>
+						<span style="border: 1px solid;border-radius: 5px;padding: 3px;background-color: #36BBAD;color: white;font-size: 24px;">ABRICKO</span>
 					</span>
 
 					<div class="wrap-input100">
