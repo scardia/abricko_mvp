@@ -1,9 +1,9 @@
 <?php
-error_reporting(0);
-define('db_host', "localhost");
-define('db_user', "AppsDbase");//AppsDbase
-define('db_password', "GTechApps@123");//GTechApps@123
-define('db_database', "AppsDbase");
+error_reporting(1);
+define('db_host', getenv("DB_HOST"));
+define('db_user', getenv("DB_USER"));//AppsDbase
+define('db_password', getenv("DB_PASS"));//GTechApps@123
+define('db_database', getenv("DB_DATA"));
 $con=mysqli_connect(db_host, db_user, db_password, db_database);
 // Check connection
 if (mysqli_connect_errno()) {
