@@ -35,23 +35,23 @@ $userName= ucwords($row[user]);
   <title>Yield Value Inspector</title>
 
   <!-- Bootstrap -->
-  <link href="../vendors/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="/vendors/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
   <!-- Font Awesome -->
-  <link href="../vendors/font-awesome/css/font-awesome.min.css" rel="stylesheet">
+  <link href="/vendors/font-awesome/css/font-awesome.min.css" rel="stylesheet">
   <!-- NProgress -->
-  <link href="../vendors/nprogress/nprogress.css" rel="stylesheet">
+  <link href="/vendors/nprogress/nprogress.css" rel="stylesheet">
   <!-- iCheck -->
-  <link href="../vendors/iCheck/skins/flat/green.css" rel="stylesheet">
+  <link href="/vendors/iCheck/skins/flat/green.css" rel="stylesheet">
 
   <!-- bootstrap-progressbar -->
-  <link href="../vendors/bootstrap-progressbar/css/bootstrap-progressbar-3.3.4.min.css" rel="stylesheet">
+  <link href="/vendors/bootstrap-progressbar/css/bootstrap-progressbar-3.3.4.min.css" rel="stylesheet">
   <!-- JQVMap -->
-  <link href="../vendors/jqvmap/dist/jqvmap.min.css" rel="stylesheet" />
+  <link href="/vendors/jqvmap/dist/jqvmap.min.css" rel="stylesheet" />
   <!-- bootstrap-daterangepicker -->
-  <link href="../vendors/bootstrap-daterangepicker/daterangepicker.css" rel="stylesheet">
+  <link href="/vendors/bootstrap-daterangepicker/daterangepicker.css" rel="stylesheet">
 
   <!-- Custom Theme Style -->
-  <link href="../build/css/custom.min.css" rel="stylesheet">
+  <link href="/build/css/custom.min.css" rel="stylesheet">
   <script src='https://api.tiles.mapbox.com/mapbox-gl-js/v0.52.0/mapbox-gl.js'></script>
   <link href='https://api.tiles.mapbox.com/mapbox-gl-js/v0.52.0/mapbox-gl.css' rel='stylesheet' />
   <script src='https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v2.3.0/mapbox-gl-geocoder.min.js'></script>
@@ -488,13 +488,13 @@ input[type=range]:disabled { cursor: default; }
     </div>
   </div>
   <!-- jQuery -->
-  <script src="../vendors/jquery/dist/jquery.min.js"></script>
+  <script src="/vendors/jquery/dist/jquery.min.js"></script>
   <!-- Bootstrap -->
-  <script src="../vendors/bootstrap/dist/js/bootstrap.min.js"></script>
+  <script src="/vendors/bootstrap/dist/js/bootstrap.min.js"></script>
   <!-- FastClick -->
-  <script src="../vendors/fastclick/lib/fastclick.js"></script>
+  <script src="/vendors/fastclick/lib/fastclick.js"></script>
   <!-- Custom Theme Scripts -->
-  <script src="../build/js/custom.min.js"></script>
+  <script src="/build/js/custom.min.js"></script>
   <script src="js/turf.js"></script>
   <script src='js/app.js' rel='stylesheet'></script>
   <script>
