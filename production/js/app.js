@@ -199,10 +199,35 @@ map.on('load', function () {
 
 });
 
-map.on('click', 'yields', function (e) {
+var clickCount = 0;
+var valid = '';
+map.on('click', 'yields', function(e) {
+    myUrl = 'main.php?qry=getValidity';
+    $.ajax({
+        url: myUrl,
+        type: 'GET',
+        dataType: "text",
+        success: function(res) {
+            if (res != "") {
+                valid = res;
+            }
+        }
+    });
+
     var coordinates = e.features[0].geometry.coordinates[0][0];
     var url = e.features[0].properties.url;
-    window.open(url);
+    if (valid == "Y") {
+        window.open(url);
+    } else {
+        //alert("Hello1 -- " + clickCount + ' ---');
+        if (clickCount < 3) {
+            window.open(url);
+        } else {
+            //alert('Please Share Link For More 30 days <br> <a href="http://www.paywithapost.de/pay?id=815757bd-9b58-4430-a4b8-69edcd9143a3 " target="_blank"></a>');
+            $('#exampleModal').modal('show');
+        }
+    }
+    clickCount = clickCount + 1;
 });
 
 //set heights of the buildings
