@@ -1,0 +1,26 @@
+language: node_js
+
+node_js:
+   - "9"
+
+sudo: required
+
+services:
+  - docker
+
+branches:
+   only:
+      - master
+
+script:
+   - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
+   - docker build -t abricko/mvp:latest -t abricko/mvp:0.1.rc$TRAVIS_BUILD_NUMBER .
+   - docker push abricko/mvp:0.1.rc$TRAVIS_BUILD_NUMBER
+   - docker push abricko/mvp:latest
+   - echo "abricko/mvp:0.1.rc$TRAVIS_BUILD_NUMBER"
+
+notifications:
+  slack:
+    rooms:
+      - ingmmo:SW0ahzRuwFIJKKAlQPzGRg0f#prj-tradulive
+      - ingmmo:SW0ahzRuwFIJKKAlQPzGRg0f#travisbuilds
