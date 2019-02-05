@@ -354,6 +354,9 @@ input[type=range]:disabled { cursor: default; }
               bottom:0px;
               margin:0;
             }
+            .modal-dialog{
+              color:black;
+            }
         </style>
 <script type="text/javascript" src="//script.crazyegg.com/pages/scripts/0083/3687.js" async="async"></script>
 </head>
