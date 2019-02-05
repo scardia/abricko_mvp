@@ -488,6 +488,19 @@ input[type=range]:disabled { cursor: default; }
       </div>
     </div>
   </div>
+    
+    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-body">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h2 class="">Share Abricko It's Free</h2>
+                    <p class="">TO GET 30 DAYS UNLIMITED JUST SHARE THE LINK! IT'S FREE!</p>
+                    <script async="async" id="button_815757bd-9b58-4430-a4b8-69edcd9143a3" src="//www.paywithatweet.com/embeds/815757bd-9b58-4430-a4b8-69edcd9143a3" charset="utf-8"></script> 
+                </div>
+            </div>
+        </div>
+    </div>
   <!-- jQuery -->
   <script src="/vendors/jquery/dist/jquery.min.js"></script>
   <!-- Bootstrap -->
