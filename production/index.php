@@ -25,7 +25,6 @@ $userName= ucwords($row[user]);
 <html lang="en">
 
 <head>
-  <script type="text/javascript" src="//script.crazyegg.com/pages/scripts/0083/3687.js" async="async"></script>
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <!-- Meta, title, CSS, favicons, etc. -->
   <meta charset="utf-8">
@@ -356,7 +355,8 @@ input[type=range]:disabled { cursor: default; }
               margin:0;
             }
         </style>
-
+<script type="text/javascript" src="//script.crazyegg.com/pages/scripts/0083/3687.js" async="async"></script>
+</head>
 <body class="nav-sm" style="background-color:#2A2A2A;">
   <div class="container body">
     <div class="main_container">
