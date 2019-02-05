@@ -4,7 +4,7 @@ session_start();
 $city=$_REQUEST['city'];
 include('assets/config.nic.php');
 if (!isset($_SESSION['user'])) {
-    header("location: login.php?city=".$city);
+    //header("location: login.php?city=".$city);
 }
 
 /*
