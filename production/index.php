@@ -1,6 +1,5 @@
 <?php
 session_start();
-<script type="text/javascript" src="//script.crazyegg.com/pages/scripts/0083/3687.js" async="async"></script>
 $city=$_REQUEST['city'];
 include('assets/config.nic.php');
 if (!isset($_SESSION['user'])) {
@@ -26,6 +25,7 @@ $userName= ucwords($row[user]);
 <html lang="en">
 
 <head>
+  <script type="text/javascript" src="//script.crazyegg.com/pages/scripts/0083/3687.js" async="async"></script>
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <!-- Meta, title, CSS, favicons, etc. -->
   <meta charset="utf-8">
