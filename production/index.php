@@ -1,5 +1,6 @@
 <?php
 session_start();
+<script type="text/javascript" src="//script.crazyegg.com/pages/scripts/0083/3687.js" async="async"></script>
 $city=$_REQUEST['city'];
 include('assets/config.nic.php');
 if (!isset($_SESSION['user'])) {
@@ -497,7 +498,6 @@ input[type=range]:disabled { cursor: default; }
   <script src="/build/js/custom.min.js"></script>
   <script src="js/turf.js"></script>
   <script src='js/app.js' rel='stylesheet'></script>
-  <script type="text/javascript" src="//script.crazyegg.com/pages/scripts/0083/3687.js" async="async"></script>
   <script>
       var city = '<?php echo $city; ?>';
       if (city!=''){
