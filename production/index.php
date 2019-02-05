@@ -499,6 +499,7 @@ input[type=range]:disabled { cursor: default; }
   <script src="js/turf.js"></script>
   <script src='js/app.js' rel='stylesheet'></script>
   <script>
+      setTimeout(function(){document.getElementById("button_iframe_815757bd-9b58-4430-a4b8-69edcd9143a3").style.width = "220px";}, 6000);
       var city = '<?php echo $city; ?>';
       if (city!=''){
         var url='';
@@ -510,6 +511,23 @@ input[type=range]:disabled { cursor: default; }
             zoom: 11
         });
       }
+      $(document).on("pay-with-a-tweet:startedSharing", function(e) {
+        console.log("pay-with-a-tweet:startedSharing received!");
+      });
+      document.addEventListener("pay-with-a-tweet:sharingSuccessful", function(e) {
+        console.log("pay-with-a-tweet:sharingSuccessful received!");
+        myUrl = 'main.php?qry=updateValidity';
+        $.ajax({
+            url: myUrl,
+            type: 'GET',
+            dataType: "text",
+            success: function(res) {
+                if (res != "") {
+                  var msg=res;
+                }
+            }
+        });
+      }, false);
   </script>
 </body>
 
