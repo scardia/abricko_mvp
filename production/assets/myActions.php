@@ -102,6 +102,47 @@ function updateYieldVal()
         }
     }
 }
+
+function getValidity(){
+    global $con;
+    if (isset($_SESSION['user'])) {
+        $user = $_SESSION['user'];
+        $qry="SELECT validity,validityStart FROM st_users WHERE email='".$user."'";
+        $result=mysqli_query($con, $qry);
+        while ($row = mysqli_fetch_assoc($result)) {
+            $days=$row['validity'];
+            $startDate=$row['validityStart'];
+        }
+        $validTill= date('Y-m-d', strtotime($startDate .'+'.$days.' days'));
+        $curDate=date("Y-m-d");
+        $validTill=strtotime($validTill);
+        $curDate=strtotime($curDate);
+        if ($validTill > $curDate) {
+            $access="Y";
+        }else{
+            $access="N";
+        }
+        return $access;
+    }else{
+        return "You are not authorised!";
+    }
+}
+
+function updateValidity(){
+    global $con;
+    if (isset($_SESSION['user'])) {
+        $user = $_SESSION['user'];
+        $curDate=date("Y-m-d");
+        $qry="Update st_users set validity=30 , validityStart='". $curDate ."' WHERE email='".$user."'";
+        if (mysqli_query($con, $qry)) {
+            return "Y".'|'.$qry;
+        } else {
+            return "N";
+        }
+    }else{
+        return "You are not authorised!";
+    }
+}
 function generateRandomString($length = 8)
 {
     $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
