@@ -106,7 +106,7 @@ function updateZipCode()
             }
         }
     }
-}*/
+}
 function updateYieldVal()
 {
     global $con;
@@ -116,6 +116,28 @@ function updateYieldVal()
         $zipcode=$row['zipcode'];
         if ($zipcode!="") {
             $qry1="SELECT avg FROM `st_zip_avg` WHERE zipCode='".$zipcode."' limit 1";
+            if ($result1=mysqli_query($con, $qry1)) {
+                while ($row1=mysqli_fetch_row($result1)) {
+                    $yield=(($row1[0])*100)/(int)$row['m2Price'];
+                    $qry2="UPDATE st_listings_sale SET yieldValue=".$yield." WHERE id=".$row['id'];
+                    mysqli_query($con, $qry2);
+                }
+                mysqli_free_result($result1);
+            }
+        }
+    }
+}
+*/
+function updateYieldVal()
+{
+    global $con;
+    $qry1="SELECT id,zipcode,m2Price,bedRoom FROM st_listings_sale";
+    $result=mysqli_query($con, $qry1);
+    while ($row = mysqli_fetch_assoc($result)) {
+        $zipcode=$row['zipcode'];
+        $bedRoom=$row['bedRoom'];
+        if ($zipcode!="") {
+            $qry1="SELECT avg FROM `st_zip_avg` WHERE zipCode='".$zipcode."' and bedRoom='".$bedRoom."' limit 1";
             if ($result1=mysqli_query($con, $qry1)) {
                 while ($row1=mysqli_fetch_row($result1)) {
                     $yield=(($row1[0])*100)/(int)$row['m2Price'];
