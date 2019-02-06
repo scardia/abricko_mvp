@@ -1,5 +1,7 @@
 <?php
 error_reporting(1);
+set_time_limit(0);
+ini_set('memory_limit', '-1');
 define('db_host', getenv("DB_HOST"));
 define('db_user', getenv("DB_USER"));//AppsDbase
 define('db_password', getenv("DB_PASS"));//GTechApps@123
