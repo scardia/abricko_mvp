@@ -66,6 +66,30 @@ function updateZipCode()
 {
     global $con;
     //$qry="SELECT sum(`price`),COUNT(`id`) FROM `st_listings` WHERE `zipcode`=`AB25`";
+    $qry="SELECT DISTINCT bedRoom,zipcode FROM st_listings_rent";
+    $result=mysqli_query($con, $qry);
+    while ($row = mysqli_fetch_assoc($result)) {
+        $zipcode=$row['zipcode'];
+        $bedRoom=$row['bedRoom'];
+        if ($zipcode!="") {
+            $qry1="SELECT sum(m2Price) as sPrice,COUNT(id) as cId FROM st_listings_rent WHERE zipcode='".$zipcode."' and bedRoom='".$bedRoom."'" ;
+            $result1=mysqli_query($con, $qry1);
+            while ($row = mysqli_fetch_assoc($result1)) {
+                $price=$row['sPrice'];
+                $tot=$row['cId'];
+                $avg=$price/$tot;
+                $qry2="INSERT INTO `st_zip_avg`(`zipCode`, `avg`,`bedRoom`) VALUES ('".trim($zipcode)."','".trim($avg)."','".trim($bedRoom)."')";
+                mysqli_query($con, $qry2);
+            }
+        }
+    }
+}
+
+/*
+function updateZipCode()
+{
+    global $con;
+    //$qry="SELECT sum(`price`),COUNT(`id`) FROM `st_listings` WHERE `zipcode`=`AB25`";
     $qry="SELECT DISTINCT zipcode FROM st_listings_rent";
     $result=mysqli_query($con, $qry);
     while ($row = mysqli_fetch_assoc($result)) {
@@ -82,7 +106,7 @@ function updateZipCode()
             }
         }
     }
-}
+}*/
 function updateYieldVal()
 {
     global $con;
