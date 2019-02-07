@@ -512,6 +512,7 @@ input[type=range]:disabled { cursor: default; }
   <script src="/vendors/fastclick/lib/fastclick.js"></script>
   <!-- Custom Theme Scripts -->
   <script src="/build/js/custom.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/gasparesganga-jquery-loading-overlay@2.1.6/dist/loadingoverlay.min.js"></script>
   <script src="js/turf.js"></script>
   <script src='js/app.js' rel='stylesheet'></script>
   <script>

@@ -469,10 +469,12 @@ function tilt(eh) {
 
 //function for retriving json data from url
 function GetJson(yourUrl) {
+    $('#map').LoadingOverlay("show");
     var Httpreq = new XMLHttpRequest(); // a new request
     Httpreq.overrideMimeType("application/json");
     Httpreq.open("GET", yourUrl, false);
     Httpreq.send(null);
+    $('#map').LoadingOverlay("hide");
     return JSON.parse(Httpreq.responseText);
 }
 
