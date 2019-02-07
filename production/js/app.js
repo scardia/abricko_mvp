@@ -1,5 +1,10 @@
 mapboxgl.accessToken = 'pk.eyJ1IjoiYWJyaWNrbyIsImEiOiJjanJhaGxlYzcwaG40NDRsaHhocXdocDVhIn0.hVzJBL6S1alSJ_-bbKc9QQ';
 
+$.LoadingOverlaySetup({
+    background      : "rgba(0, 0, 0, 0.5)",
+    imageColor      : "#b2ffff"
+});
+
 var map = new mapboxgl.Map({
     container: 'map', // container id
     style: 'mapbox://styles/abricko/cjraikncz0ob62so80hnh4gdu', //'mapbox://styles/abricko/cjraikncz0ob62so80hnh4gdu',
