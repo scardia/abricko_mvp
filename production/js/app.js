@@ -302,6 +302,8 @@ map.on('moveend', function () {
 
 //getting top ten records between lang/lat of four corners
 function updateViewport(minx, miny, maxx, maxy) {
+    
+    $('#map').LoadingOverlay("show");
     myUrlm = 'geo.php?minx=' + minx + '&miny=' + miny + '&maxx=' + maxx + '&maxy=' + maxy;
     $.ajax({
         url: myUrlm,
@@ -324,6 +326,7 @@ function updateViewport(minx, miny, maxx, maxy) {
                     setTimeout(map.getSource('yields').setData(yields), 300);
                 }
             }
+            $('#map').LoadingOverlay("hide");
         }
     });
     myUrl = 'main.php?qry=getTopTen1&minx=' + minx + '&miny=' + miny + '&maxx=' + maxx + '&maxy=' + maxy;
