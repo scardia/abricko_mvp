@@ -167,6 +167,7 @@ map.on('load', function () {
         var address = e.features[0].properties.address;
         var YieldVal = parseFloat(e.features[0].properties.yield);
         var zipcode = e.features[0].properties.zipcode;
+        var avgRent='';
         repImage(imgLink);
         if (isNaN(YieldVal)) {
             YieldVal = '';
@@ -176,10 +177,23 @@ map.on('load', function () {
         while (Math.abs(e.lngLat.lng - coordinates[0]) > 180) {
             coordinates[0] += e.lngLat.lng > coordinates[0] ? 360 : -360;
         }
-        popup.setLngLat(coordinates)
-            .setHTML('<div style="min-Width:250px;height:auto;background-color: #333333;"><a style="text-decoration: none;" target="_blank" href="' + url + '"><h3>' + title + '</h3><h4>' + address +
-                '</h4><p><b>Yield Value: </b>' + YieldVal + '% </p></a></div>')
-            .addTo(map);
+        
+        myUrl = 'main.php?qry=getAvgRent&url=' + url;
+        $.ajax({
+            url: myUrl,
+            type: 'GET',
+            dataType: "text",
+            success: function(res) {
+                if (res != "") {
+                    avgRent = res;
+                    popup.setLngLat(coordinates)
+                        .setHTML('<div style="min-Width:250px;height:auto;background-color: #333333;"><a style="text-decoration: none;" target="_blank" href="' + url + '"><h3>' + title + '</h3><h4>' + address +
+                            '</h4><p><b>Yield Value: </b>' + YieldVal + '% </p>Average Rent :' + avgRent + '</a></div>')
+                        .addTo(map);
+                }
+            }
+        });
+        
     });
     map.on('mouseleave', 'yields', function () {
         $('.mapboxgl-popup-content').mouseover(function () {
