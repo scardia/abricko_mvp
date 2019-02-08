@@ -190,6 +190,35 @@ function updateValidity(){
         return "You are not authorised!";
     }
 }
+
+function getAvgRent()
+{
+    global $con;
+    $avg=0;
+    $url=$_REQUEST['url'];
+    //echo "url is----->".$url;
+    $qry="SELECT zipcode,bedRoom FROM st_listings_sale WHERE url='".$url."'";
+    //echo "qry is -->".$qry;
+    $result=mysqli_query($con, $qry);
+    if (mysqli_num_rows($result) >0) {
+        while ($row = mysqli_fetch_assoc($result)) {
+            $zipcode=$row['zipcode'];
+            $bedRoom=$row['bedRoom'];
+            $qry1="SELECT avg FROM `st_zip_avg` WHERE zipCode='".$zipcode."' and bedRoom='".$bedRoom."' limit 1";
+            //echo "<br>qry1 is -->".$qry1;
+            $result1=mysqli_query($con, $qry1);
+            if (mysqli_num_rows($result1) >0) {
+                while ($row1=mysqli_fetch_row($result1)) {
+                    $avg=$row1[0];
+                    $avg=doubleval(number_format(($avg), 2, '.', ''));
+                    return $avg;
+                }
+                mysqli_free_result($result1);
+            }
+        }
+    }
+}
+
 function generateRandomString($length = 8)
 {
     $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
