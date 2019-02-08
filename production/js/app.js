@@ -159,6 +159,7 @@ map.on('load', function () {
     });
     map.on('mouseenter', 'yields', function (e) {
         // Change the cursor style as a UI indicator.
+        var avgRent='';
         map.getCanvas().style.cursor = 'pointer';
         var coordinates = e.features[0].geometry.coordinates[0][0];
         var title = e.features[0].properties.name;
@@ -167,7 +168,6 @@ map.on('load', function () {
         var address = e.features[0].properties.address;
         var YieldVal = parseFloat(e.features[0].properties.yield);
         var zipcode = e.features[0].properties.zipcode;
-        var avgRent='';
         repImage(imgLink);
         if (isNaN(YieldVal)) {
             YieldVal = '';
