@@ -211,7 +211,9 @@ function getAvgRent()
                 while ($row1=mysqli_fetch_row($result1)) {
                     $avg=$row1[0];
                     $avg=doubleval(number_format(($avg), 2, '.', ''));
-                    return $avg/12;
+                    $avg=$avg/12;
+                    $avg=doubleval(number_format(($avg), 0, '.', ''));
+                    return $avg;
                 }
                 mysqli_free_result($result1);
             }
