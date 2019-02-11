@@ -4,7 +4,7 @@
 */
 require_once 'assets/config.nic.php';
 
-$minx=$_REQUEST['id'];];
+$minx=$_REQUEST['id'];
 
 $qry="SELECT `title`, `latitude`, `longitude`, `yieldValue`,`address`, `imgLink`, `url` FROM `st_listings_sale` 
     WHERE id = ".$minx;
