@@ -159,44 +159,12 @@ map.on('load', function () {
     });
     map.on('mouseenter', 'yields', function (e) {
         // Change the cursor style as a UI indicator.
-        var prps = e.features[0].properties;
         if (!('name' in e.features[0].properties)){
-            prps = GetJson("details.php?id="+e.features[0].properties.id);
-        }
-        var avgRent='';
-        map.getCanvas().style.cursor = 'pointer';
-        var coordinates = e.features[0].geometry.coordinates[0][0];
-        var title = prps.name;
-        var imgLink = prps.image;
-        var url = prps.url;
-        var address = prps.address;
-        var YieldVal = parseFloat(prps.yield);
-        var zipcode = prps.zipcode;
-        repImage(imgLink);
-        if (isNaN(YieldVal)) {
-            YieldVal = '';
-        } else {
-            YieldVal = YieldVal.toFixed(2);
-        }
-        while (Math.abs(e.lngLat.lng - coordinates[0]) > 180) {
-            coordinates[0] += e.lngLat.lng > coordinates[0] ? 360 : -360;
-        }
-        
-        myUrl = 'main.php?qry=getAvgRent&url=' + url;
-        $.ajax({
-            url: myUrl,
-            type: 'GET',
-            dataType: "text",
-            success: function(res) {
-                if (res != "") {
-                    avgRent = res;
-                    popup.setLngLat(coordinates)
-                        .setHTML('<div style="min-Width:250px;height:auto;background-color: #333333;"><a style="text-decoration: none;" target="_blank" href="' + url + '"><h3>' + title + '</h3><h4>' + address +
-                            '</h4><p><b>Yield Value: </b>' + YieldVal + '% </p>Average Rent: ' + avgRent + '</a></div>')
-                        .addTo(map);
-                }
-            }
-        });
+            var ff = e.features[0];
+            ff.prps = GetJson("details.php?id="+e.features[0].properties.id)
+            hoverdata(ff);
+        } else 
+            hoverdata(e.features[0]);
         
     });
     map.on('mouseleave', 'yields', function () {
@@ -221,6 +189,43 @@ map.on('load', function () {
     setScale(0);
 
 });
+
+function hoverdata(data){
+    var avgRent='';
+    map.getCanvas().style.cursor = 'pointer';
+    var coordinates = data.geometry.coordinates[0][0];
+    var title = data.properties.name;
+    var imgLink = data.properties.image;
+    var url = data.properties.url;
+    var address = data.properties.address;
+    var YieldVal = parseFloat(data.properties.yield);
+    var zipcode = data.properties.zipcode;
+    repImage(imgLink);
+    if (isNaN(YieldVal)) {
+        YieldVal = '';
+    } else {
+        YieldVal = YieldVal.toFixed(2);
+    }
+    while (Math.abs(e.lngLat.lng - coordinates[0]) > 180) {
+        coordinates[0] += e.lngLat.lng > coordinates[0] ? 360 : -360;
+    }
+    
+    myUrl = 'main.php?qry=getAvgRent&url=' + url;
+    $.ajax({
+        url: myUrl,
+        type: 'GET',
+        dataType: "text",
+        success: function(res) {
+            if (res != "") {
+                avgRent = res;
+                popup.setLngLat(coordinates)
+                    .setHTML('<div style="min-Width:250px;height:auto;background-color: #333333;"><a style="text-decoration: none;" target="_blank" href="' + url + '"><h3>' + title + '</h3><h4>' + address +
+                        '</h4><p><b>Yield Value: </b>' + YieldVal + '% </p>Average Rent: ' + avgRent + '</a></div>')
+                    .addTo(map);
+            }
+        }
+    });
+}
 
 var clickCount = 0;
 var valid = '';
