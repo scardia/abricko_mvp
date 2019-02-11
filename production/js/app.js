@@ -159,18 +159,19 @@ map.on('load', function () {
     });
     map.on('mouseenter', 'yields', function (e) {
         // Change the cursor style as a UI indicator.
+        var prps = e.features[0].properties;
         if (!('name' in e.features[0].properties)){
-            e.features[0].properties = GetJson("details.php?id="+e.features[0].properties.id)
+            prps = GetJson("details.php?id="+e.features[0].properties.id);
         }
         var avgRent='';
         map.getCanvas().style.cursor = 'pointer';
         var coordinates = e.features[0].geometry.coordinates[0][0];
-        var title = e.features[0].properties.name;
-        var imgLink = e.features[0].properties.image;
-        var url = e.features[0].properties.url;
-        var address = e.features[0].properties.address;
-        var YieldVal = parseFloat(e.features[0].properties.yield);
-        var zipcode = e.features[0].properties.zipcode;
+        var title = prps.name;
+        var imgLink = prps.image;
+        var url = prps.url;
+        var address = prps.address;
+        var YieldVal = parseFloat(prps.yield);
+        var zipcode = prps.zipcode;
         repImage(imgLink);
         if (isNaN(YieldVal)) {
             YieldVal = '';
