@@ -159,6 +159,9 @@ map.on('load', function () {
     });
     map.on('mouseenter', 'yields', function (e) {
         // Change the cursor style as a UI indicator.
+        if (!('name' in e.features[0].properties)){
+            e.features[0].properties = GetJson("details.php?id="+e.features[0].properties.id)
+        }
         var avgRent='';
         map.getCanvas().style.cursor = 'pointer';
         var coordinates = e.features[0].geometry.coordinates[0][0];
@@ -323,7 +326,7 @@ map.on('moveend', function () {
 function updateViewport(minx, miny, maxx, maxy) {
     
     $('#map').LoadingOverlay("show");
-    myUrlm = 'geo.php?minx=' + minx + '&miny=' + miny + '&maxx=' + maxx + '&maxy=' + maxy;
+    myUrlm = 'geo_small.php?minx=' + minx + '&miny=' + miny + '&maxx=' + maxx + '&maxy=' + maxy;
     $.ajax({
         url: myUrlm,
         type: 'GET',
