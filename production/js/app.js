@@ -188,7 +188,7 @@ map.on('load', function () {
                     avgRent = res;
                     popup.setLngLat(coordinates)
                         .setHTML('<div style="min-Width:250px;height:auto;background-color: #333333;"><a style="text-decoration: none;" target="_blank" href="' + url + '"><h3>' + title + '</h3><h4>' + address +
-                            '</h4><p><b>Yield Value: </b>' + YieldVal + '% </p>Average Rent :' + avgRent + '</a></div>')
+                            '</h4><p><b>Yield Value: </b>' + YieldVal + '% </p>Average Rent: ' + avgRent + '</a></div>')
                         .addTo(map);
                 }
             }
