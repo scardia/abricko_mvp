@@ -42,8 +42,8 @@ map.on('load', function () {
 
     //set up data sources
     map.addSource('yields', {
-            'type': 'geojson',
-            'data': emptyGeojson
+            'type': 'vector',
+            'url': "https://stache.abricko.com/data/yields/{z}/{x}/{y}.pbf"
         })
         .addSource('highlight', {
             'type': 'geojson',
@@ -324,39 +324,37 @@ map.on('moveend', function () {
     var lon_max = ll.getEast();
     var lat_max = ll.getNorth();
     updateViewport(lon_min, lat_min, lon_max, lat_max);
-
-
 });
 
 //getting top ten records between lang/lat of four corners
 function updateViewport(minx, miny, maxx, maxy) {
     
-    $('#map').LoadingOverlay("show");
-    myUrlm = 'geo_small.php?minx=' + minx + '&miny=' + miny + '&maxx=' + maxx + '&maxy=' + maxy;
-    $.ajax({
-        url: myUrlm,
-        type: 'GET',
-        dataType: "text json",
-        success: function (res) {
-            var yields_dots = res;
-            const coll = [];
-            if (yields_dots.features){
-                for (let f of yields_dots.features) {
-                    coll.push(turf.buffer(f, 50, {
-                        units: 'meters'
-                    }));
-                }
-                var yields = turf.featureCollection(coll);
-                var s = map.getSource('yields');
-                if (s){
-                    s.setData(yields);    
-                } else {
-                    setTimeout(map.getSource('yields').setData(yields), 300);
-                }
-            }
-            $('#map').LoadingOverlay("hide");
-        }
-    });
+    //$('#map').LoadingOverlay("show");
+    //myUrlm = 'geo_small.php?minx=' + minx + '&miny=' + miny + '&maxx=' + maxx + '&maxy=' + maxy;
+    //$.ajax({
+    //    url: myUrlm,
+    //    type: 'GET',
+    //    dataType: "text json",
+    //    success: function (res) {
+    //        var yields_dots = res;
+    //        const coll = [];
+    //        if (yields_dots.features){
+    //            for (let f of yields_dots.features) {
+    //                coll.push(turf.buffer(f, 50, {
+    //                    units: 'meters'
+    //                }));
+    //            }
+    //            var yields = turf.featureCollection(coll);
+    //            var s = map.getSource('yields');
+    //            if (s){
+    //                s.setData(yields);    
+    //            } else {
+    //                setTimeout(map.getSource('yields').setData(yields), 300);
+    //            }
+    //        }
+    //        $('#map').LoadingOverlay("hide");
+    //    }
+    //});
     myUrl = 'main.php?qry=getTopTen1&minx=' + minx + '&miny=' + miny + '&maxx=' + maxx + '&maxy=' + maxy;
     $.ajax({
         url: myUrl,
