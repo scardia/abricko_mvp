@@ -13,7 +13,7 @@ $maxx=$_REQUEST['maxx'];
 $maxy=$_REQUEST['maxy'];
 
 $qry="SELECT distinct `id`, `yieldValue`, `latitude`, `longitude` FROM `st_listings_sale` 
-    WHERE (`latitude` BETWEEN ".$miny." AND ".$maxy.") AND (`longitude` BETWEEN ".$minx." AND ".$maxx.") and `yieldValue`>0 and `yieldValue`<36";
+    WHERE (`latitude` BETWEEN ".$miny." AND ".$maxy.") AND (`longitude` BETWEEN ".$minx." AND ".$maxx.") and `yieldValue`>0 and `yieldValue`<36 and bedRoom>0";
    //return $qry;
 $result=mysqli_query($con, $qry);
 $data=array();
