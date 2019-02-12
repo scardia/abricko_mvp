@@ -192,7 +192,7 @@ map.on('load', function () {
 function hoverdata(data, lngLat){
     var avgRent='';
     map.getCanvas().style.cursor = 'pointer';
-    var coordinates = data.geometry.coordinates[0][0];
+    var coordinates = data.geometry.coordinates;
     var title = data.properties.name;
     var imgLink = data.properties.image;
     var url = data.properties.url;
@@ -241,8 +241,9 @@ map.on('click', 'yields', function(e) {
         }
     });
 
-    var coordinates = e.features[0].geometry.coordinates[0][0];
-    var url = e.features[0].properties.url;
+    let ff = GetJson("details.php?id="+e.features[0].properties.id)
+    var coordinates = ff.features[0].geometry.coordinates[0];
+    var url = ff.features[0].properties.url;
     if (valid == "Y") {
         window.open(url);
     } else {
