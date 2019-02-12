@@ -61,6 +61,7 @@ map.on('load', function () {
         .addLayer({
             'id': 'yields',
             'type': 'fill-extrusion',
+            'source-layer':'yields',
             'source': 'yields',
             'paint': {
                 'fill-extrusion-color': {
