@@ -381,9 +381,9 @@ function loadbars(myData) {
     //alert(myData);
     var chart = new CanvasJS.Chart("chartContainer", {
         animationEnabled: true,
-        title:{
-		text:"TOP YIELDS"
-	    },
+        //title:{
+	//	text:"TOP YIELDS"
+	//   },
         axisX: {
             interval: 1
         },
