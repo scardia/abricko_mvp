@@ -161,9 +161,9 @@ map.on('load', function () {
         // Change the cursor style as a UI indicator.
         if (!('name' in e.features[0].properties)){
             let ff = GetJson("details.php?id="+e.features[0].properties.id)
-            hoverdata(ff.features[0], e.lngLat);
+            hoverdata(ff.features[0], e.lngLat, popup);
         } else 
-            hoverdata(e.features[0], e.lngLat);
+            hoverdata(e.features[0], e.lngLat, popup);
         
     });
     map.on('mouseleave', 'yields', function () {
@@ -189,7 +189,7 @@ map.on('load', function () {
 
 });
 
-function hoverdata(data, lngLat){
+function hoverdata(data, lngLat, popup){
     var avgRent='';
     map.getCanvas().style.cursor = 'pointer';
     var coordinates = data.geometry.coordinates;
