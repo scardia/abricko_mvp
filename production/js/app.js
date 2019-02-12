@@ -160,9 +160,8 @@ map.on('load', function () {
     map.on('mouseenter', 'yields', function (e) {
         // Change the cursor style as a UI indicator.
         if (!('name' in e.features[0].properties)){
-            var ff = e.features[0];
-            ff.prps = GetJson("details.php?id="+e.features[0].properties.id)
-            hoverdata(ff, e.lngLat);
+            let ff = GetJson("details.php?id="+e.features[0].properties.id)
+            hoverdata(ff.features[0], e.lngLat);
         } else 
             hoverdata(e.features[0], e.lngLat);
         
