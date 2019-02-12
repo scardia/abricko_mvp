@@ -190,7 +190,7 @@ map.on('load', function () {
 
 });
 
-function hoverdata(data, lnglat){
+function hoverdata(data, lngLat){
     var avgRent='';
     map.getCanvas().style.cursor = 'pointer';
     var coordinates = data.geometry.coordinates[0][0];
