@@ -162,9 +162,9 @@ map.on('load', function () {
         if (!('name' in e.features[0].properties)){
             var ff = e.features[0];
             ff.prps = GetJson("details.php?id="+e.features[0].properties.id)
-            hoverdata(ff);
+            hoverdata(ff, e.lngLat);
         } else 
-            hoverdata(e.features[0]);
+            hoverdata(e.features[0], e.lngLat);
         
     });
     map.on('mouseleave', 'yields', function () {
@@ -190,7 +190,7 @@ map.on('load', function () {
 
 });
 
-function hoverdata(data){
+function hoverdata(data, lnglat){
     var avgRent='';
     map.getCanvas().style.cursor = 'pointer';
     var coordinates = data.geometry.coordinates[0][0];
@@ -206,8 +206,8 @@ function hoverdata(data){
     } else {
         YieldVal = YieldVal.toFixed(2);
     }
-    while (Math.abs(e.lngLat.lng - coordinates[0]) > 180) {
-        coordinates[0] += e.lngLat.lng > coordinates[0] ? 360 : -360;
+    while (Math.abs(lngLat.lng - coordinates[0]) > 180) {
+        coordinates[0] += lngLat.lng > coordinates[0] ? 360 : -360;
     }
     
     myUrl = 'main.php?qry=getAvgRent&url=' + url;
