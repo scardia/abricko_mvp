@@ -43,7 +43,7 @@ map.on('load', function () {
     //set up data sources
     map.addSource('yields', {
             'type': 'vector',
-            'url': "https://stache.abricko.com/data/yields/{z}/{x}/{y}.pbf"
+            'tiles': ["https://stache.abricko.com/data/yields/{z}/{x}/{y}.pbf"]
         })
         .addSource('highlight', {
             'type': 'geojson',
