@@ -482,9 +482,14 @@ input[type=range]:disabled { cursor: default; }
               <div class="title uppercase label strong" style="padding-bottom: 0; margin-bottom: -10px;"><h2>Top yields</h2></div>
               <div class="col-12 col-md-12 p-0" style="height: 250px;float:left;overflow-y: auto;">
                 <div class="col-12 col-md-12" style="height: 700px;float:left;width:100%" id="chartContainer"></div>
+              </div>
+              <!--<div class="chartAreaWrapper">
+                <div id="chartContainer" style="height: 100%; width: 100%;"></div>
+                </div>
+              <canvas id="overlayedAxis"></canvas>-->
             </div>
-            <div class="col-4 col-md-4" style="height: 100%;border:0px solid black;padding-right: 0px; float:right;" id='rightCorner'>
-              <img id='imgCorner' src='assets/abricko_logo_trans.png' alt='Property Image' style="min-width:100%; min-height:34vh;" />
+            <div class="col-4 col-md-4" style="border:0px solid black;padding-right: 0px; float:right;" id='rightCorner'>
+              <img id='imgCorner' src='assets/abricko_logo_trans.png' alt='Property Image' style="width:100%; height: 34vh;" />
             </div>
           </div>
           <script src="assets/canvasjs.min.js"></script>
