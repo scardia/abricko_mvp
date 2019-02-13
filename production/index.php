@@ -60,7 +60,7 @@ $userName= ucwords($row[user]);
   <link href='assets/base.css' rel='stylesheet' />
   <style>
     #map { position:absolute; top:0; bottom:0; width:100%; }
-            #map {
+           #map {
                 position:absolute;
                 top:0; bottom:0;
                 right:0;
