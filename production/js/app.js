@@ -100,7 +100,7 @@ map.on('load', function () {
                     ]
                 }// [ 'interpolate', ['steps'], [ '*', 10, ['get', 'yield']], 1, colors.dark, 50, colors.average, 100, colors.light ],
             }
-        }, 'yields')
+        }, 'buildings')
         .addLayer({
             'id': 'radiusHighlight',
             'type': 'fill-extrusion',
@@ -327,6 +327,7 @@ function setFilter(from, to) {
     if (to < 20)
         new_Filter.push(["<", 'yield', to]);
     map.setFilter('yields', new_Filter);
+    map.setFilter('yields_base', new_Filter);
 }
 
 
