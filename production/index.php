@@ -475,12 +475,12 @@ input[type=range]:disabled { cursor: default; }
             </div>
           </div>
         </div>
-        <div class="row" style="height: 34vh;">
+        <div class="row" style="height: 40vh;">
           <div class="row col-12 col-md-12 p-0" style="height: 100%;background-color:#2A2A2A;margin:0px">
             <!--min-height:260px;-->
             <div class="col-8 col-md-8 p-0 " id="" style="float:left;background-color:#2A2A2A;padding-left: 0px;">
               <div class="title uppercase label strong" style="padding-bottom: 0; margin-bottom: -10px;"><h2>Top yields</h2></div>
-              <div class="col-12 col-md-12 p-0" style="height: 250px;float:left;overflow-y: auto;">
+              <div class="col-12 col-md-12 p-0" style="height: 35vh;float:left;overflow-y: auto;">
                 <div class="col-12 col-md-12" style="height: 700px;float:left;width:100%" id="chartContainer"></div>
               </div>
               <!--<div class="chartAreaWrapper">
@@ -489,7 +489,7 @@ input[type=range]:disabled { cursor: default; }
               <canvas id="overlayedAxis"></canvas>-->
             </div>
             <div class="col-4 col-md-4" style="border:0px solid black;padding-right: 0px; float:right;" id='rightCorner'>
-              <img id='imgCorner' src='assets/abricko_logo_trans.png' alt='Property Image' style="width:100%; height: 34vh;" />
+              <img id='imgCorner' src='assets/abricko_logo_trans.png' alt='Property Image' style="width:100%; height: 39.2vh;" />
             </div>
           </div>
           <script src="assets/canvasjs.min.js"></script>
