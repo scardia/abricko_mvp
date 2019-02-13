@@ -84,6 +84,24 @@ map.on('load', function () {
             }
         }, 'airport-label')
         .addLayer({
+            'id': 'yields_base',
+            'type': 'fill',
+            'source-layer':'yields',
+            'source': 'yields',
+            'paint': {
+                'fill-color': {
+                    "property": 'yield', 
+                    "stops": [
+                        [0, colors.dark], 
+                        [4.99, colors.dark], 
+                        [5, colors.average], 
+                        [9.99, colors.average],
+                        [10, colors.light]
+                    ]
+                }// [ 'interpolate', ['steps'], [ '*', 10, ['get', 'yield']], 1, colors.dark, 50, colors.average, 100, colors.light ],
+            }
+        }, 'airport-label')
+        .addLayer({
             'id': 'radiusHighlight',
             'type': 'fill-extrusion',
             'source': 'radiusHighlight',
@@ -116,7 +134,8 @@ map.on('load', function () {
                     "base": 1
                 }
             }
-        }, 'water').addLayer({
+        }, 'water')
+        .addLayer({
             'id': 'highlighted_fill',
             'type': 'line',
             'source': 'highlight',
