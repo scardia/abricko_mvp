@@ -379,7 +379,7 @@ input[type=range]:disabled { cursor: default; }
               <div id='minimap' class='section'>
               </div>
               <div class='pad1 section clearfix'>
-                <span class='small uppercase label strong'>Visualization</span>
+                <span class='small uppercase label quiet'>Visualization</span>
                 <div class='rounded-toggle fr col4'>
                   <input id='pizza' type='radio' name='rtoggle' value='pizza'>
                   <label for='pizza' class='col6 center' onclick='tilt(false)'>2D</label>
