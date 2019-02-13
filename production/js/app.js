@@ -192,6 +192,7 @@ map.on('load', function () {
 
 function hoverdata(data, lngLat, popup){
     var avgRent='';
+    var ll = lngLat;
     map.getCanvas().style.cursor = 'pointer';
     var coordinates = data.geometry.coordinates;
     var title = data.properties.name;
@@ -218,9 +219,9 @@ function hoverdata(data, lngLat, popup){
         success: function(res) {
             if (res != "") {
                 avgRent = res;
-                popup.setLngLat(coordinates)
+                popup.setLngLat(ll)
                     .setHTML('<div style="min-Width:250px;height:auto;background-color: #333333;"><a style="text-decoration: none;" target="_blank" href="' + url + '"><h3>' + title + '</h3><h4>' + address +
-                        '</h4><p><b>Yield Value: </b>' + YieldVal + '% </p>Average Rent: ' + avgRent + '</a></div>')
+                        '</h4><p><b>Yield Value: </b>' + YieldVal + '% </p>Comparable sAverage Rent: ' + avgRent + '</a></div>')
                     .addTo(map);
             }
         }
