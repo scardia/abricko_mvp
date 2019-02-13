@@ -100,7 +100,7 @@ map.on('load', function () {
                     ]
                 }// [ 'interpolate', ['steps'], [ '*', 10, ['get', 'yield']], 1, colors.dark, 50, colors.average, 100, colors.light ],
             }
-        }, 'airport-label')
+        }, 'yields')
         .addLayer({
             'id': 'radiusHighlight',
             'type': 'fill-extrusion',
