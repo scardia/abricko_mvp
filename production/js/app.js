@@ -405,10 +405,15 @@ function loadbars(myData) {
 	//	text:"TOP YIELDS"
 	//   },
         axisX: {
+            labelFontSize: 18,
             interval: 1
+        },
+        axisY: {
+            labelFontSize: 18
         },
         theme: "dark1",
         data: [{
+            indexLabelFontSize: 16,
             mouseover: function (e) {
                 repImage(e.dataPoint.url); //url
                 //new mapboxgl.Marker({color: 'red'});
