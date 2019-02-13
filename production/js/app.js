@@ -182,9 +182,9 @@ map.on('load', function () {
         if (!('name' in e.features[0].properties)){
             let ff = GetJson("details.php?id="+e.features[0].properties.id)
             hoverdata(ff.features[0], e.lngLat, popup);
-        } else 
+        } else {
             hoverdata(e.features[0], e.lngLat, popup);
-        
+        }
     });
     map.on('mouseleave', 'yields', function () {
         $('.mapboxgl-popup-content').mouseover(function () {
@@ -262,9 +262,8 @@ map.on('click', 'yields', function(e) {
         }
     });
 
-    let ff = GetJson("details.php?id="+e.features[0].properties.id)
-    var coordinates = ff.features[0].geometry.coordinates[0];
-    var url = ff.features[0].properties.url;
+    var coordinates = e.features[0].geometry.coordinates[0];
+    var url = e.features[0].properties.url;
     if (valid == "Y") {
         window.open(url);
     } else {
