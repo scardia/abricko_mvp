@@ -406,13 +406,16 @@ function loadbars(myData) {
 	//   },
         axisX: {
             labelFontSize: 18,
+            labelFontColor: "#A0A0A0",
             interval: 1
         },
         axisY: {
+            labelFontColor: "#A0A0A0",
             labelFontSize: 18
         },
         theme: "dark1",
         data: [{
+            indexLabelFontColor: "#A0A0A0",
             indexLabelFontSize: 16,
             mouseover: function (e) {
                 repImage(e.dataPoint.url); //url
