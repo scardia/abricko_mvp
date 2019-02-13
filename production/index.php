@@ -480,7 +480,7 @@ input[type=range]:disabled { cursor: default; }
             <!--min-height:260px;-->
             <div class="col-8 col-md-8" id="" style="float:left;background-color:#2A2A2A;padding-left: 0px;">
               <div class="title uppercase label strong" style="padding-bottom: 0; margin-bottom: -10px;"><h2>Top yields</h2></div>
-              <div class="col-12 col-md-12" style="height: 60vh;" id="chartContainer" style='float:left;overflow-y: auto;'></div>
+              <div class="col-12 col-md-12" style="height: 60vh;float:left;overflow-y: auto;" id="chartContainer"></div>
             </div>
             <div class="col-4 col-md-4" style="height: 100%;border:0px solid black;padding-right: 0px; float:right;" id='rightCorner'>
               <img id='imgCorner' src='assets/abricko_logo_trans.png' alt='Property Image' style="min-width:100%; min-height:34vh;" />
