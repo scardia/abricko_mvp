@@ -20,7 +20,7 @@ if (isset($_POST['submit'])) {
             $headers = "From: " . strip_tags($_POST['req-email']) . "\r\n";
             $headers .= "Reply-To: ". strip_tags($_POST['req-email']) . "\r\n";
             $headers .= "MIME-Version: 1.0\r\n";
-            $headers .= "Content-Type: text/html; charset=ISO-8859-1\r\n";
+            $headers .= "Content-Type: text/html; charset=ISO-8859-1"." \r\n";
             $subject ="[Abricko.com] Please verify your email address.";
             $message = "<html><body><center>Almost done, <b>".$fName." </b> ! To complete your Abricko sign up, we just need to verify your email address: ".$email."</center><br></br>";
             $message =$message.'<center><a style="background:#0366d6;border-radius:5px;border:1px solid #0366d6;box-sizing:border-box;color:#ffffff;display:inline-block;font-size:14px;font-weight:bold;margin:0;padding:10px 20px;text-decoration:none"
