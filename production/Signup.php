@@ -1,9 +1,9 @@
 <?php
 include('assets/config.nic.php');
 $msg="";
-error_reporting(-1);
+/*error_reporting(-1);
 ini_set('display_errors', 'On');
-set_error_handler("var_dump");
+set_error_handler("var_dump");*/
 if (isset($_POST['submit'])) {
     if (($_POST['fname'])!="") {
         $hash = generateRandomString();
