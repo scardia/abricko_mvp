@@ -6,7 +6,7 @@ include('assets/config.nic.php');
 if (isset($_POST['submit'])) { //print_r($_POST['submit']);
     $email = trim($_POST['user']);
     $password = trim($_POST['pass']);
-    $qry = "Select * from st_users where email='".$email."' and pass='".$password."' and verifyMail=1";
+    $qry = "Select * from st_users where email='".$email."' and pass='".$password."'";
     //echo $qry;
     $result = mysqli_query($con, $qry);
     $row=mysqli_fetch_array($result, MYSQLI_ASSOC);
