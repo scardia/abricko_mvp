@@ -357,6 +357,35 @@ input[type=range]:disabled { cursor: default; }
             .modal-dialog{
               color:black;
             }
+            /*For Scroll bar*/
+            /* width */
+            ::-webkit-scrollbar {
+              width:8px;
+            }
+
+            /* Track */
+            ::-webkit-scrollbar-track {
+              background: #2A2A2A; 
+            }
+            
+            /* Handle */
+            ::-webkit-scrollbar-thumb {
+              background: #1ABB9C; 
+            }
+
+            /* Handle on hover */
+            ::-webkit-scrollbar-thumb:hover {
+              background: #1ABB9C; 
+            }
+            /* for Mozilla */
+            .scroll {
+              border: 1px solid #2A2A2A;
+              display: inline-block;
+            }
+            .scroll-thin {
+              scrollbar-color: #1ABB9C #2A2A2A;
+              scrollbar-width: thin;
+            }
         </style>
 <script type="text/javascript" src="//script.crazyegg.com/pages/scripts/0083/3687.js" async="async"></script>
 </head>
@@ -480,7 +509,7 @@ input[type=range]:disabled { cursor: default; }
             <!--min-height:260px;-->
             <div class="col-8 col-md-8 p-0 " id="" style="float:left;background-color:#2A2A2A;padding-left: 0px;">
               <div class="title uppercase label strong" style="padding-bottom: 0; margin-bottom: -10px;color:#A0A0A0;"><h2>Top yields</h2></div>
-              <div class="col-12 col-md-12 p-0" style="height: 33vh;float:left;overflow-y: auto;">
+              <div class="col-12 col-md-12 p-0 scroll scroll-thin" style="height: 33vh;float:left;overflow-y: auto;">
                 <div class="col-12 col-md-12" style="height: 700px;float:left;width:100%" id="chartContainer"></div>
               </div>
               <!--<div class="chartAreaWrapper">
