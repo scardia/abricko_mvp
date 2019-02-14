@@ -404,18 +404,18 @@ function loadbars(myData) {
 	//	text:"TOP YIELDS"
 	//   },
         axisX: {
-            labelFontSize: 18,
+            labelFontSize: 16,
             labelFontColor: "#A0A0A0",
             interval: 1
         },
         axisY: {
             labelFontColor: "#A0A0A0",
-            labelFontSize: 18
+            labelFontSize: 16
         },
         theme: "dark1",
         data: [{
             indexLabelFontColor: "#A0A0A0",
-            indexLabelFontSize: 16,
+            indexLabelFontSize: 14,
             mouseover: function (e) {
                 repImage(e.dataPoint.url); //url
                 //new mapboxgl.Marker({color: 'red'});
