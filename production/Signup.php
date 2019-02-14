@@ -5,46 +5,46 @@ $msg="";
 ini_set('display_errors', 'On');
 set_error_handler("var_dump");*/
 if (isset($_POST['submit'])) {
-    if (($_POST['fname'])!="") {
+    if (($_POST['fname'])!="") {	
         $hash = generateRandomString();
         $fName = trim($_POST['fname']);
         $email = trim($_POST['email']);
         $password = trim($_POST['pass']);
         $lName = trim($_POST['lname']);
-        $qry = "insert ignore into st_users(user,email,pass,lname,hash) values('".$fName."','".$email."','".$password."','".$lName."','".$hash."')";
-        $result = mysqli_query($con, $qry);
-        if ($result) {
-            $to = $email;
-            //$from = 'test@gtechinfo.com';
-            $from = 'Abricko Verify Mail <mail@Abricko.com>';
-            $headers = "From: " . strip_tags($_POST['req-email']) . "\r\n";
-            $headers .= "Reply-To: ". strip_tags($_POST['req-email']) . "\r\n";
-            $headers .= "MIME-Version: 1.0\r\n";
-            $headers .= "Content-Type: text/html; charset=ISO-8859-1"." \r\n";
-            $subject ="[Abricko.com] Please verify your email address.";
-            $message = "<html><body><center>Almost done, <b>".$fName." </b> ! To complete your Abricko sign up, we just need to verify your email address: ".$email."</center><br></br>";
-            $message =$message.'<center><a style="background:#0366d6;border-radius:5px;border:1px solid #0366d6;box-sizing:border-box;color:#ffffff;display:inline-block;font-size:14px;font-weight:bold;margin:0;padding:10px 20px;text-decoration:none"
-                      href="http://app.gtechinfo.com/abricko/production/verifyMail.php?email='.$email.'&hash='.$hash.'" target="_blank">Verify email address</a></center>'."<br></br>";
-            $message =$message.'<center><p style="color:#586069!important;font-family:-apple-system,BlinkMacSystemFont,Segoe UI,Helvetica,Arial,sans-serif;font-size:12px!important;font-weight:normal;line-height:1.5;margin:0 0 15px;padding:0;text-align:left">
-    	               You’re receiving this email because you recently created a new Abricko account or added a new email address. If this wasn’t you, please ignore this email </p></center></body></html>';
-
-            $ans = mail($to, $subject, $message, $headers);
-            if (!$ans) {
-                $msg= "Error";
-            } else {
-                $msg= "<h1>Mail sent Successfully!</h1>";
-            }
-            $smsg = "User Created Successfully.";
-        //$msg="<h1>Mail sent Successfully!</h1>";
-        //header("location: login.php");
+        if ($email!='') {
+			$id = getRecordByID("id", "st_users", "where email='".$email."'");
+			if ($id=="") {
+				$curDate=date("Y-m-d");
+				$qry = "insert ignore into st_users(user,email,pass,lname,hash,validityStart) values('".$fName."','".$email."','".$password."','".$lName."','".$hash."','".$curDate."')";
+				$result = mysqli_query($con, $qry);
+				$msg = "Account Created Successfully.";
+			}else{
+				$msg ="Email already Existed,Please Register with new Email";
+			}
+        	//$msg="<h1>Mail sent Successfully!</h1>";
+        	//header("location: login.php");
         } else {
-            $msg ="User Registration Failed";
+            $msg ="Please Provide Email for Registration ";
             //echo "<script type='text/javascript'>alert('$fmsg');</script>";
         }
+    }else{
+		$msg ="Please Provide Name for Registration ";
+	}
+}
+
+function getRecordByID($fld, $tbl, $wh)
+{
+    global $con;
+    $qry = 'select '.$fld.' from '.$tbl.' '.$wh;
+    //$result = mysql_query($qry);
+    $result = mysqli_query($con, $qry);
+    if (mysqli_num_rows($result) > 0) {
+        $row = mysqli_fetch_array($result);
+        return $row[0];
     }
 }
-?>
 
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
