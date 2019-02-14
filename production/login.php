@@ -88,10 +88,10 @@ if (isset($_POST['submit'])) { //print_r($_POST['submit']);
 					</div>
 
 					<div class="wrap-input100 validate-input" data-validate="Enter password">
-						<span class="btn-show-pass">
+						<span class="btn-show-pass" onclick="myFunction()">
 							<i class="zmdi zmdi-eye"></i>
 						</span>
-						<input class="input100" type="password" name="pass" placeholder="Password">
+						<input class="input100" type="password" name="pass" placeholder="Password" id="Pass">
 					</div>
 
 					<div class="container-login100-form-btn">
@@ -140,6 +140,16 @@ if (isset($_POST['submit'])) { //print_r($_POST['submit']);
 	<script src="vendor/countdowntime/countdowntime.js"></script>
 <!--===============================================================================================-->
 	<script src="js/main.js"></script>
+	<script>
+		function myFunction() {
+			var x = document.getElementById("Pass");
+			if (x.type === "password") {
+				x.type = "text";
+			} else {
+				x.type = "password";
+			}
+		}
+	</script>
 
 </body>
 </html>
