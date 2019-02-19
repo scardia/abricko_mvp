@@ -230,8 +230,14 @@ function hoverdata(data, lngLat, popup){
         coordinates[0] += lngLat.lng > coordinates[0] ? 360 : -360;
     }
     popup.setLngLat(ll)
-        .setHTML('<div style="min-Width:250px;height:auto;background-color: #333333;"><a style="text-decoration: none;" target="_blank" href="' + url + '"><h3>' + title + '</h3><h4>' + address +
-            '</h4><p><b>Yield Value: </b>' + YieldVal + '% </p>Comparable Avg. Rent: £<span id="avgRent">Loading...</span> pcm</a></div>')
+        .setHTML(
+            '<div style="min-Width:250px;height:auto;background-color: #333333;">'+
+                '<a style="text-decoration: none;" target="_blank" href="' + url + '">'+
+                    '<h3>' + title + '</h3>' + '<h4>' + address + '</h4>'+
+                    '<div><b>Yield Value: </b>' + YieldVal + '% </div>'+
+                    '<div>Comparable Avg. Rent: £<span id="avgRent">Loading...</span> pcm</div>'+
+                '</a>'+
+            '</div>')
         .addTo(map);
     myUrl = 'main.php?qry=getAvgRent&url=' + url;
     $.ajax({
