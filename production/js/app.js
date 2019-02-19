@@ -274,7 +274,7 @@ map.on('click', 'yields', function(e) {
         window.open(url);
     } else {
         //alert("Hello1 -- " + clickCount + ' ---');
-        if (clickCount < 3) {
+        if (clickCount < 1000) {
             window.open(url);
         } else {
             //alert('Please Share Link For More 30 days <br> <a href="http://www.paywithapost.de/pay?id=815757bd-9b58-4430-a4b8-69edcd9143a3 " target="_blank"></a>');
