@@ -12,6 +12,7 @@ if (isset($_POST['submit'])) {
         $password = trim($_POST['pass']);
         $lName = trim($_POST['lname']);
         if ($email!='') {
+		if (filter_var($email, FILTER_VALIDATE_EMAIL)){
 			$id = getRecordByID("id", "st_users", "where email='".$email."'");
 			if ($id=="") {
 				$curDate=date("Y-m-d");
@@ -21,8 +22,11 @@ if (isset($_POST['submit'])) {
 			}else{
 				$msg ="Email already Existed,Please Register with new Email";
 			}
-        	//$msg="<h1>Mail sent Successfully!</h1>";
-        	//header("location: login.php");
+			//$msg="<h1>Mail sent Successfully!</h1>";
+			//header("location: login.php");
+		}else{
+			$msg ="Please Provide Correct Email for Registration ";
+		}
         } else {
             $msg ="Please Provide Email for Registration ";
             //echo "<script type='text/javascript'>alert('$fmsg');</script>";
