@@ -196,6 +196,7 @@ function getAvgRent()
     global $con;
     $avg=0;
     $url=$_REQUEST['url'];
+    $url=explode("?",$url)[0];
     //echo "url is----->".$url;
     $qry="SELECT zipcode,bedRoom FROM st_listings_sale WHERE url='".$url."'";
     //echo "qry is -->".$qry;
