@@ -14,6 +14,11 @@ if (isset($_POST['submit'])) { //print_r($_POST['submit']);
     if (mysqli_num_rows($result) == 1) {
         $_SESSION['user'] = $email; // Initializing Session
         $_SESSION['id']=$row[id];
+		$visits=$row[visits];
+		$visits=$visits+1;
+		$curDate=date("Y-m-d H-i-s");
+		$qry2="UPDATE st_users SET visits= " . $visits . " , lastLogin = '" . $curDate . "' WHERE id=".$row[id];
+		mysqli_query($con, $qry2);
         header("location: .?city=".$city); // Redirecting To Other Page
     } else {
         $error = "Incorrect username or password / Verify Your Email Address";
