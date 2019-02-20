@@ -256,7 +256,7 @@ function hoverdata(data, lngLat, popup){
 var clickCount = 0;
 var valid = '';
 map.on('click', 'yields', function(e) {
-    myUrl = 'main.php?qry=getValidity';
+    /*myUrl = 'main.php?qry=getValidity';
     $.ajax({
         url: myUrl,
         type: 'GET',
@@ -266,8 +266,8 @@ map.on('click', 'yields', function(e) {
                 valid = res;
             }
         }
-    });
-
+    });*/
+	valid="Y";
     var coordinates = e.features[0].geometry.coordinates[0];
     var url = e.features[0].properties.url;
     if (valid == "Y") {
