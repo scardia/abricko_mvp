@@ -4,7 +4,7 @@ function getTopTen()
 {
     global $con;
     $zipcode=$_REQUEST['zipcode'];
-    $qry="SELECT distinct `title`, `latitude`, `longitude`, `yieldValue`, `imgLink`, `url` FROM `st_listings_sale` WHERE `zipcode`='".$zipcode."' and `yieldValue`>0 ORDER by `yieldValue` DESC LIMIT 0,10";
+    $qry="SELECT distinct `title`, `latitude`, `longitude`, `calc_yield` as `yieldValue`, `imgLink`, `url` FROM `v_st_listings_sale` WHERE `zipcode`='".$zipcode."' and `calc_yield`>0 ORDER by `calc_yield` DESC LIMIT 0,10";
     $result=mysqli_query($con, $qry);
     $data=array();
     if (mysqli_num_rows($result) >0) {
@@ -26,7 +26,7 @@ function getTopTen1()
     $miny=$_REQUEST['miny'];
     $maxx=$_REQUEST['maxx'];
     $maxy=$_REQUEST['maxy'];
-    $qry="SELECT distinct `title`, `latitude`, `longitude`, `yieldValue`, `imgLink`, `url` FROM `st_listings_sale` WHERE (`latitude` BETWEEN ".$miny." AND ".$maxy.") AND (`longitude` BETWEEN ".$minx." AND ".$maxx.") and `yieldValue`>0 and `yieldValue`<36 and `bedRoom`>0 ORDER by `yieldValue` DESC LIMIT 0,30";
+    $qry="SELECT distinct `title`, `latitude`, `longitude`, `calc_yield` as `yieldValue`, `imgLink`, `url` FROM `st_listings_sale` WHERE (`latitude` BETWEEN ".$miny." AND ".$maxy.") AND (`longitude` BETWEEN ".$minx." AND ".$maxx.") and `calc_yield`>0 and `calc_yield`<36 and `bedRoom`>0 ORDER by `calc_yield` DESC LIMIT 0,30";
     //return $qry;
     $result=mysqli_query($con, $qry);
     $data=array();
@@ -45,7 +45,7 @@ function getTopTen1()
 function getGeoJson()
 {
     global $con;
-    $qry="SELECT distinct `id`,`title`, `latitude`, `longitude`, `yieldValue`, `imgLink`, `url` FROM `st_listings_sale` WHERE `yieldValue`>0 ORDER by `yieldValue`";
+    $qry="SELECT distinct `id`,`title`, `latitude`, `longitude`,`calc_yield` as `yieldValue`, `imgLink`, `url` FROM `st_listings_sale` WHERE `yieldValue`>0 ORDER by `calc_yield`";
     //return $qry;
     $result=mysqli_query($con, $qry);
     $data=array();
