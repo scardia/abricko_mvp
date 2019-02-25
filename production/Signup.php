@@ -1,5 +1,12 @@
 <?php
 include('assets/config.nic.php');
+use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\Exception;
+
+require 'PHPMailer/src/Exception.php';
+require 'PHPMailer/src/PHPMailer.php';
+require 'PHPMailer/src/SMTP.php';
+
 $msg="";
 /*error_reporting(-1);
 ini_set('display_errors', 'On');
@@ -15,21 +22,47 @@ if (isset($_POST['submit'])) {
 		if (filter_var($email, FILTER_VALIDATE_EMAIL)){
 			$id = getRecordByID("id", "st_users", "where email='".$email."'");
 			if ($id=="") {
-				$curDate=date("Y-m-d");
+								$curDate=date("Y-m-d");
 				$qry = "insert ignore into st_users(user,email,pass,lname,hash,validityStart) values('".$fName."','".$email."','".$password."','".$lName."','".$hash."','".$curDate."')";
 				$result = mysqli_query($con, $qry);
-				$msg = "Account Created Successfully.";
-				$to = $email;
-				$from = 'Abricko Verify Mail <contact@abricko.com>';
-				$headers = "From: " . "contact@abricko.com" . "\r\n";
-				$headers .= "Reply-To: ". strip_tags("contact@abricko.com") . "\r\n";
-				$headers .= "MIME-Version: 1.0\r\n";
-				$headers .= "Content-Type: text/html; charset=ISO-8859-1\r\n";
-				$message = "<html><body><center>Welcome to Abricko. <b>".$fName." </b> ! Thank you for joining our growing community of over 2000 smart real
-					    estate professionals who are using data every day to make better decisions.</center><br></br>";
-				$message =$message.'<center>'."<br></br> This is  your account details:<br> Username: ".$email."<br> Password: ".$password."<br>";
-				$message =$message.'<center><p style="color:#586069!important;font-family:-apple-system,BlinkMacSystemFont,Segoe UI,Helvetica,Arial,sans-serif;font-size:12px!important;font-weight:normal;line-height:1.5;margin:0 0 15px;padding:0;text-align:left">
-				You can always log in to your account on www.abricko.com and change your password when you like.</p></center></body></html>';
+                $msg = "Account Created Successfully.";
+                //From email address and name
+
+                $message = "<html><body>Welcome to Abricko   <b>".$fName." </b> ! <br >Thank you for joining our growing community of over 2000 smart real
+                    estate professionals who are using data every day to make better decisions.<br></br>";
+                    $message =$message.''."<br></br> This is  your account details:<br> Username: ".$email."<br> Password: ".$password."<br>";
+                    $message =$message.'<p style="color:#586069!important;font-family:-apple-system,BlinkMacSystemFont,Segoe UI,Helvetica,Arial,sans-serif;font-size:12px!important;font-weight:normal;line-height:1.5;margin:0 0 15px;padding:0;text-align:left">
+                    You can always log in to your account on www.abricko.com and change your password when you like.</p></></body></html>';
+                
+                $mail = new PHPMailer;
+                $mail->From = "contact@abricko.com";
+                $mail->FromName = "Abricko";
+
+                //To address and name
+                $mail->addAddress($email);
+                //$mail->addAddress("test@gtechinfo.com"); //Recipient name is optional
+                //$mail->addAddress("dsrp001@gmail.com");
+                //Address to which recipient will reply
+                $mail->addReplyTo("contact@abricko.com", "Reply");
+
+                //CC and BCC
+                //$mail->addCC("cc@example.com");
+                //$mail->addBCC("bcc@example.com");
+
+                //Send HTML or Plain Text email
+                $mail->isHTML(true);
+
+                $mail->Subject = "[Abricko.com] Welcome to Abricko.";
+                $mail->Body = $message;
+                $mail->AltBody = "This is the plain text version of the email content";
+                $to = $email;
+                $mail->isHTML(true);
+                if(!$mail->send()){
+                    $msg = "Mailer Error: " . $mail->ErrorInfo;
+                } 
+                else{
+                    $msg = "Message has been sent successfully";
+                }
 			}else{
 				$msg ="Email already Existed,Please Register with new Email";
 			}
