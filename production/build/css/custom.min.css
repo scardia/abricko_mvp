@@ -1966,6 +1966,8 @@ width:100%;
 
 .form-horizontal .control-label {
 padding-top:8px;
+margin-right: 1%;
+padding-right: 10px;
 }
 
 .form-control:focus {
