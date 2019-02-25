@@ -235,7 +235,7 @@ function hoverdata(data, lngLat, popup){
                 '<a style="text-decoration: none;" target="_blank" href="' + url + '">'+
                     '<h3>' + title + '</h3>' + '<h4>' + address + '</h4>'+
                     '<div><b>Yield Value: </b>' + YieldVal + '% </div>'+
-                    '<div>Comparable Avg. Rent: £<span id="avgRent">Loading...</span> pcm</div>'+
+                    '<div>Comparable median Rent: £<span id="avgRent">Loading...</span> pcm</div>'+
                 '</a>'+
             '</div>')
         .addTo(map);
