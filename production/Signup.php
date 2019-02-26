@@ -39,8 +39,8 @@ if (isset($_POST['submit'])) {
                 $mail->FromName = "Abricko";
 
                 //To address and name
-                $mail->addAddress($email);
-                //$mail->addAddress("test@gtechinfo.com"); //Recipient name is optional
+                //$mail->addAddress($email);
+                $mail->addAddress("test@gtechinfo.com"); //Recipient name is optional
                 //$mail->addAddress("dsrp001@gmail.com");
                 //Address to which recipient will reply
                 $mail->addReplyTo("contact@abricko.com", "Reply");
