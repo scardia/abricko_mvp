@@ -29,9 +29,9 @@ $mail->SMTPOptions = array(
         'allow_self_signed' => true
     )
 );
-$mail->Host = 'email-smtp.us-west-2.amazonaws.com';
+//$mail->Host = 'email-smtp.us-west-2.amazonaws.com';
 //Set the hostname of the mail server
-//$mail->Host = "smtp.abricko.com";
+$mail->Host = "smtp.abricko.com";
 //Set the SMTP port number - likely to be 25, 465 or 587
 $mail->Port = 587;
 //Whether to use SMTP authentication
