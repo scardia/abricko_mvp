@@ -50,7 +50,7 @@ if (isset($_POST['submit'])) {
 		$mail->Username = "AKIAI3ZOJ5VTR4C6Y45Q";                 
 		$mail->Password = "BJey8kTGnXPUAMCfF75ee+zRhGqIK2Rq3Q+t/jBh36AH";                           
 		//If SMTP requires TLS encryption then set it
-		$mail->SMTPSecure = "tls";                           
+		$mail->SMTPSecure = "TLS";                           
 		//Set TCP port to connect to 
 		$mail->Port = 465;  
 				
