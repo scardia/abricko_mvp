@@ -51,10 +51,10 @@ $mail->Subject = 'PHPMailer SMTP test';
 
 //Read an HTML message body from an external file, convert referenced images to embedded,
 //convert HTML into a basic plain-text alternative body
-$fName='SAhil ';
+$fName='SAhil';
 $email='dsrp001@gmail.com';
 $password='sahil@96';
-$message = "';
+$message = "hello ,this is test mail";
 
 $mail->Body= $message;
 //Replace the plain text body with one created manually
