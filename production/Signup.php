@@ -52,7 +52,7 @@ if (isset($_POST['submit'])) {
 		//If SMTP requires TLS encryption then set it
 		$mail->SMTPSecure = "tls";                           
 		//Set TCP port to connect to 
-		$mail->Port = 587;  
+		$mail->Port = 465;  
 				
                 $mail->From = "contact@abricko.com";
                 $mail->FromName = "Abricko";
