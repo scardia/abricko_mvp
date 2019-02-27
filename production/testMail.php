@@ -18,26 +18,35 @@ $mail->isSMTP();
 // 2 = client and server messages
 $mail->SMTPDebug = 2;
 //Set the hostname of the mail server
-$mail->Host = 'mail.example.com';
+$mail->Host = "smtp.abricko.com";
 //Set the SMTP port number - likely to be 25, 465 or 587
 $mail->Port = 25;
 //Whether to use SMTP authentication
 $mail->SMTPAuth = true;
 //Username to use for SMTP authentication
-$mail->Username = 'yourname@example.com';
+$mail->Username = "AKIAI3ZOJ5VTR4C6Y45Q";
 //Password to use for SMTP authentication
-$mail->Password = 'yourpassword';
+$mail->Password = "BJey8kTGnXPUAMCfF75ee+zRhGqIK2Rq3Q+t/jBh36AH";
 //Set who the message is to be sent from
-$mail->setFrom('from@example.com', 'First Last');
+$mail->setFrom("contact@abricko.com");
 //Set an alternative reply-to address
-$mail->addReplyTo('replyto@example.com', 'First Last');
+$mail->addReplyTo("contact@abricko.com", 'Abricko');
 //Set who the message is to be sent to
-$mail->addAddress('whoto@example.com', 'John Doe');
+$mail->addAddress('test@gtechinfo.com', 'John Doe');
 //Set the subject line
 $mail->Subject = 'PHPMailer SMTP test';
 //Read an HTML message body from an external file, convert referenced images to embedded,
 //convert HTML into a basic plain-text alternative body
-$mail->msgHTML(file_get_contents('contents.html'), __DIR__);
+$fName='SAhil ';
+$email='dsrp001@gmail.com'
+$password='sahil@96';
+$message = "<html><body>Welcome to Abricko   <b>" . $fName . " </b> ! <br >Thank you for joining our growing community of over 2000 smart real
+estate professionals who are using data every day to make better decisions.<br></br>";
+$message = $message . '' . "<br></br> This is  your account details:<br> Username: " . $email . "<br> Password: " . $password . "<br>";
+$message = $message . '<p style="color:#586069!important;font-family:-apple-system,BlinkMacSystemFont,Segoe UI,Helvetica,Arial,sans-serif;font-size:12px!important;font-weight:normal;line-height:1.5;margin:0 0 15px;padding:0;text-align:left">
+You can always log in to your account on www.abricko.com and change your password when you like.</p></></body></html>';
+
+$mail->Body= $message;
 //Replace the plain text body with one created manually
 $mail->AltBody = 'This is a plain-text message body';
 //Attach an image file
