@@ -46,6 +46,7 @@ $mail->addReplyTo("contact@abricko.com", 'Abricko');
 //Set who the message is to be sent to
 $mail->addAddress('sahil@gtechinfo.com', 'John Doe');
 $mail->AddAddress("dsrp001@gmail.com");  
+$mail->AddAddress("marco.montanari@gmail.com"); 
 //Set the subject line
 $mail->Subject = 'PHPMailer SMTP test';
 
