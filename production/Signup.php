@@ -77,7 +77,7 @@ if (isset($_POST['submit'])) {
                 $to = $email;
                 $mail->isHTML(true);
                 if(!$mail->send()){
-                    $msg = "Mailer Error: " . $mail->ErrorInfo;
+                    //$msg = "Mailer Error: " . $mail->ErrorInfo;
                 } 
                 else{
                     $msg = "Message has been sent successfully";
