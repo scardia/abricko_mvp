@@ -40,7 +40,7 @@ $mail->Username = "AKIAI3ZOJ5VTR4C6Y45Q";
 //Password to use for SMTP authentication
 $mail->Password = "BJey8kTGnXPUAMCfF75ee+zRhGqIK2Rq3Q+t/jBh36AH";
 //Set who the message is to be sent from
-$mail->setFrom("Abricko");
+$mail->setFrom("contact@abricko.com");
 //Set an alternative reply-to address
 $mail->addReplyTo("contact@abricko.com", 'Abricko');
 //Set who the message is to be sent to
