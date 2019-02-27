@@ -21,6 +21,14 @@ $mail->isSMTP();
 // 1 = client messages
 // 2 = client and server messages
 $mail->SMTPDebug = 3;
+
+$mail->SMTPOptions = array(
+    'ssl' => array(
+        'verify_peer' => false,
+        'verify_peer_name' => false,
+        'allow_self_signed' => true
+    )
+);
 //Set the hostname of the mail server
 $mail->Host = "smtp.abricko.com";
 //Set the SMTP port number - likely to be 25, 465 or 587
