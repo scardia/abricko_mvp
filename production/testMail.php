@@ -44,9 +44,11 @@ $mail->setFrom("contact@abricko.com");
 //Set an alternative reply-to address
 $mail->addReplyTo("contact@abricko.com", 'Abricko');
 //Set who the message is to be sent to
-$mail->addAddress('test@gtechinfo.com', 'John Doe');
+$mail->addAddress('sahil@gtechinfo.com', 'John Doe');
+$mail->AddAddress("dsrp001@gmail.com");  
 //Set the subject line
 $mail->Subject = 'PHPMailer SMTP test';
+
 //Read an HTML message body from an external file, convert referenced images to embedded,
 //convert HTML into a basic plain-text alternative body
 $fName='SAhil ';
