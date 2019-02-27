@@ -36,20 +36,23 @@ if (isset($_POST['submit'])) {
                 
                 $mail = new PHPMailer;
 				
-				$mail->isSMTP();    
+		//Enable SMTP debugging. 
+		$mail->SMTPDebug = 3; 	
+				
+		$mail->isSMTP();    
 
-				//Set SMTP host name  
+		//Set SMTP host name  
 
-				$mail->Host = "smtp.abricko.com";
-				//Set this to true if SMTP host requires authentication to send email
-				$mail->SMTPAuth = true;                          
-				//Provide username and password     
-				$mail->Username = "AKIAI3ZOJ5VTR4C6Y45Q";                 
-				$mail->Password = "BJey8kTGnXPUAMCfF75ee+zRhGqIK2Rq3Q+t/jBh36AH";                           
-				//If SMTP requires TLS encryption then set it
-				$mail->SMTPSecure = "tls";                           
-				//Set TCP port to connect to 
-				//$mail->Port = 587;  
+		$mail->Host = "smtp.abricko.com";
+		//Set this to true if SMTP host requires authentication to send email
+		$mail->SMTPAuth = true;                          
+		//Provide username and password     
+		$mail->Username = "AKIAI3ZOJ5VTR4C6Y45Q";                 
+		$mail->Password = "BJey8kTGnXPUAMCfF75ee+zRhGqIK2Rq3Q+t/jBh36AH";                           
+		//If SMTP requires TLS encryption then set it
+		$mail->SMTPSecure = "tls";                           
+		//Set TCP port to connect to 
+		$mail->Port = 587;  
 				
                 $mail->From = "contact@abricko.com";
                 $mail->FromName = "Abricko";
