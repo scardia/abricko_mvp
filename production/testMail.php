@@ -54,11 +54,7 @@ $mail->Subject = 'PHPMailer SMTP test';
 $fName='SAhil ';
 $email='dsrp001@gmail.com';
 $password='sahil@96';
-$message = "<html><body>Welcome to Abricko   <b>" . $fName . " </b> ! <br >Thank you for joining our growing community of over 2000 smart real
-estate professionals who are using data every day to make better decisions.<br></br>";
-$message = $message . '' . "<br></br> This is  your account details:<br> Username: " . $email . "<br> Password: " . $password . "<br>";
-$message = $message . '<p style="color:#586069!important;font-family:-apple-system,BlinkMacSystemFont,Segoe UI,Helvetica,Arial,sans-serif;font-size:12px!important;font-weight:normal;line-height:1.5;margin:0 0 15px;padding:0;text-align:left">
-You can always log in to your account on www.abricko.com and change your password when you like.</p></></body></html>';
+$message = "';
 
 $mail->Body= $message;
 //Replace the plain text body with one created manually
