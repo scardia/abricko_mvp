@@ -206,7 +206,7 @@ function getAvgRent()
         while ($row = mysqli_fetch_assoc($result)) {
             $zipcode=$row['zipcode'];
             $bedRoom=$row['bedRoom'];
-            $qry1="SELECT avg FROM `st_zip_avg` WHERE zipCode='".$zipcode."' and bedRoom='".$bedRoom."' limit 1";
+            $qry1="SELECT med FROM `st_zip_median` WHERE zipCode='".$zipcode."' and bedRoom='".$bedRoom."' limit 1";
             //echo "<br>qry1 is -->".$qry1;
             $result1=mysqli_query($con, $qry1);
             if (mysqli_num_rows($result1) >0) {
