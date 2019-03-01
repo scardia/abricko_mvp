@@ -395,7 +395,6 @@ input[type=range]:disabled { cursor: default; }
               scrollbar-width: thin;
             }
         </style>
-        <script type="text/javascript" src="//script.crazyegg.com/pages/scripts/0083/3687.js" async="async"></script>
 </head>
 <body class="nav-sm" style="background-color:#2A2A2A;">
   <div class="container body">
