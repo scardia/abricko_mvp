@@ -108,6 +108,8 @@ function updateZipCode()
         }
     }
 }
+*/
+/*
 function updateYieldVal()
 {
     global $con;
