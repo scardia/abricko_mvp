@@ -220,6 +220,7 @@ function hoverdata(data, lngLat, popup){
     var address = data.properties.address;
     var YieldVal = parseFloat(data.properties.yield);
     var zipcode = data.properties.zipcode;
+    var average = data.properties.average;
     repImage(imgLink);
     if (isNaN(YieldVal)) {
         YieldVal = '';
@@ -235,7 +236,7 @@ function hoverdata(data, lngLat, popup){
                 '<a style="text-decoration: none;" target="_blank" href="' + url + '">'+
                     '<h3>' + title + '</h3>' + '<h4>' + address + '</h4>'+
                     '<div><b>Yield Value: </b>' + YieldVal + '% </div>'+
-                    '<div>Comparable median Rent: £<span id="avgRent">Loading...</span> pcm</div>'+
+                    '<div>Comparable median Rent: £' + average + ' pcm</div>'+
                 '</a>'+
             '</div>')
         .addTo(map);
