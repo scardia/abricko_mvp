@@ -27,7 +27,7 @@ function getTopTen1()
     $maxx=$_REQUEST['maxx'];
     $maxy=$_REQUEST['maxy'];
     #$qry="SELECT distinct `title`, `latitude`, `longitude`, `calc_yield` as `yieldValue`, `imgLink`, `url` FROM `v_st_listings_sale` WHERE (`latitude` BETWEEN ".$miny." AND ".$maxy.") AND (`longitude` BETWEEN ".$minx." AND ".$maxx.") and `calc_yield`>0 and `calc_yield`<36 and `bedRoom`>0 ORDER by `calc_yield` DESC LIMIT 0,30";
-    $qry="SELECT distinct `title`, `latitude`, `longitude`,  `yieldValue`, `imgLink`, `url` FROM `st_listings_sale_stuff` WHERE (`latitude` BETWEEN ".$miny." AND ".$maxy.") AND (`longitude` BETWEEN ".$minx." AND ".$maxx.") and `yieldValue`>0 and `yieldValue`<36 and `bedRoom`>0 ORDER by `yieldValue` DESC LIMIT 0,30";
+    $qry="SELECT distinct `title`, `latitude`, `longitude`,  `yieldValue`, `imgLink`, `url` FROM `st_listings_sale_stuff` WHERE (`latitude` BETWEEN ".$miny." AND ".$maxy.") AND (`longitude` BETWEEN ".$minx." AND ".$maxx.") and `yieldValue`>0 and `yieldValue`<36 and `bedRoom`>0 and lastUpdated not NUll ORDER by `yieldValue` DESC LIMIT 0,30";
     //return $qry;
     $result=mysqli_query($con, $qry);
     $data=array();
