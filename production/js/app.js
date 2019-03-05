@@ -240,6 +240,7 @@ function hoverdata(data, lngLat, popup){
                 '</a>'+
             '</div>')
         .addTo(map);
+	console.log(url);
 /*	
     myUrl = 'main.php?qry=getAvgRent&url=' + url;
     $.ajax({
