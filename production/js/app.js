@@ -240,6 +240,7 @@ function hoverdata(data, lngLat, popup){
                 '</a>'+
             '</div>')
         .addTo(map);
+/*	
     myUrl = 'main.php?qry=getAvgRent&url=' + url;
     $.ajax({
         url: myUrl,
@@ -252,6 +253,7 @@ function hoverdata(data, lngLat, popup){
             }
         }
     });
+*/
 }
 
 var clickCount = 0;
