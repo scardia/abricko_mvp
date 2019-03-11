@@ -53,6 +53,7 @@ if (isset($_POST['submit'])) {
                     $message =$message."We welcome your feedback,ideas,suggestion.We really want to make your life easier, so if we're falling short or should be doing something different, we want to hear about it.>Send us an email at contact@abricko.com";
                     $mail->addAddress($email, $fName);
                     $mail->Body= $message;
+					$mail->IsHTML(true);
                     if (!$mail->send()) {
                         $msg="Technical error in sending Mail";//'Mailer Error: ' . $mail->ErrorInfo;
                     } else {
