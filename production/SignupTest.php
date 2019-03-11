@@ -50,7 +50,14 @@ if (isset($_POST['submit'])) {
 					$message= $message.$email."<br> Confirm your email";
 					$message =$message.'<center><a style="background:#0366d6;border-radius:5px;border:1px solid #0366d6;box-sizing:border-box;color:#ffffff;display:inline-block;font-size:14px;font-weight:bold;margin:0;padding:10px 20px;text-decoration:none"
 					href="https://map.abricko.com/verifyMail.php?email='.$email.'&hash='.$hash.'" target="_blank">Verify email address</a></center>'."<br></br>";
-					$message =$message."We welcome your feedback,ideas,suggestion.We really want to make your life easier, so if we're falling short or should be doing something different, we want to hear about it.>Send us an email at contact@abricko.com"
+                    $message =$message."We welcome your feedback,ideas,suggestion.We really want to make your life easier, so if we're falling short or should be doing something different, we want to hear about it.>Send us an email at contact@abricko.com";
+                    $mail->addAddress($email, $fName);
+                    $mail->Body= $message;
+                    if (!$mail->send()) {
+                        $msg="Technical error in sending Mail";//'Mailer Error: ' . $mail->ErrorInfo;
+                    } else {
+                        $msg ='Message sent!';
+                    }
                     //From email address and name
                 } else {
                     $msg = "Email already Existed,Please Register with new Email";
