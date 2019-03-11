@@ -10,7 +10,7 @@ date_default_timezone_set('Etc/UTC');
 $mail = new PHPMailer;
 //Tell PHPMailer to use SMTP
 $mail->isSMTP();
-$mail->SMTPDebug = 3;
+$mail->SMTPDebug = 2;
 $mail->SMTPOptions = array(
     'ssl' => array(
         'verify_peer' => false,
