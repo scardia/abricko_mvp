@@ -2,11 +2,31 @@
 include('assets/config.nic.php');
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
-
+error_reporting(0);
 require 'PHPMailer/src/Exception.php';
 require 'PHPMailer/src/PHPMailer.php';
 require 'PHPMailer/src/SMTP.php';
-
+date_default_timezone_set('Etc/UTC');
+$mail = new PHPMailer;
+//Tell PHPMailer to use SMTP
+$mail->isSMTP();
+$mail->SMTPDebug = false;  
+$mail->SMTPOptions = array(
+    'ssl' => array(
+        'verify_peer' => false,
+        'verify_peer_name' => false,
+        'allow_self_signed' => true
+    )
+);
+//Set the hostname of the mail server
+$mail->Host = "smtp.abricko.com";
+$mail->Port = 587;
+$mail->SMTPAuth = true;
+$mail->Username = "AKIAI3ZOJ5VTR4C6Y45Q";
+$mail->Password = "BJey8kTGnXPUAMCfF75ee+zRhGqIK2Rq3Q+t/jBh36AH";
+$mail->setFrom("contact@abricko.com");
+$mail->addReplyTo("contact@abricko.com", 'Abricko');
+$mail->Subject = 'Welcome to Abricko -Just one more step !';
 $msg = "";
 /*error_reporting(-1);
 ini_set('display_errors', 'On');
@@ -25,19 +45,29 @@ if (isset($_POST['submit'])) {
                     $curDate = date("Y-m-d");
                     $qry     = "insert ignore into st_users(user,email,pass,lname,hash,validityStart) values('" . $fName . "','" . $email . "','" . $password . "','" . $lName . "','" . $hash . "','" . $curDate . "')";
                     $result  = mysqli_query($con, $qry);
-                    $msg     = "Account Created Successfully.";
+					$msg     = "Account Created Successfully.";
+					$message= "Welcome to Abricko -Just one more step ! <br>Yes, we know. <br>An email to confirm email.<br> To complete your Abricko Sign-Up, We just need to verify your email Address : ";
+					$message= $message.$email."<br> Confirm your email";
+					$message =$message.'<center><a style="background:#0366d6;border-radius:5px;border:1px solid #0366d6;box-sizing:border-box;color:#ffffff;display:inline-block;font-size:14px;font-weight:bold;margin:0;padding:10px 20px;text-decoration:none"
+					href="https://map.abricko.com/verifyMail.php?email='.$email.'&hash='.$hash.'" target="_blank">Verify email address</a></center>'."<br></br>";
+                    $message =$message."We welcome your feedback,ideas,suggestion.We really want to make your life easier, so if we're falling short or should be doing something different, we want to hear about it.>Send us an email at contact@abricko.com";
+                    $mail->addAddress($email, $fName);
+                    $mail->Body= $message;
+					$mail->IsHTML(true);
+                    if (!$mail->send()) {
+                        $msg="Technical error in sending Mail";//'Mailer Error: ' . $mail->ErrorInfo;
+                    } else {
+                        $msg = "Account Created Successfully.";
+                    }
                     //From email address and name
                 } else {
                     $msg = "Email already Existed,Please Register with new Email";
                 }
-                //$msg="<h1>Mail sent Successfully!</h1>";
-                //header("location: login.php");
             } else {
                 $msg = "Please Provide Correct Email for Registration ";
             }
         } else {
             $msg = "Please Provide Email for Registration ";
-            //echo "<script type='text/javascript'>alert('$fmsg');</script>";
         }
     } else {
         $msg = "Please Provide Name for Registration ";
