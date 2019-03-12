@@ -254,21 +254,31 @@ function getAll()
     $maxy=$_REQUEST['maxy'];
     $minyield=$_REQUEST['minyield'];
     $maxyield=$_REQUEST['maxyield'];
-    $minbedroom=$_REQUEST['minbedroom'];
-    $maxbedroom=$_REQUEST['maxbedroom'];
+    $minbedrooms=$_REQUEST['minbedrooms'];
+    $maxbedrooms=$_REQUEST['maxbedrooms'];
     $minprice=$_REQUEST['minprice'];
     $maxprice=$_REQUEST['maxprice'];
     #$qry="SELECT distinct `title`, `latitude`, `longitude`, `calc_yield` as `yieldValue`, `imgLink`, `url` FROM `v_st_listings_sale` WHERE (`latitude` BETWEEN ".$miny." AND ".$maxy.") AND (`longitude` BETWEEN ".$minx." AND ".$maxx.") and `calc_yield`>0 and `calc_yield`<36 and `bedRoom`>0 ORDER by `calc_yield` DESC LIMIT 0,30";
-    $qry="SELECT distinct `title`, `latitude`, `longitude`, `zipcode`, `bedRoom`, `yieldValue`, `imgLink`, `url`, `price`, `zipcode`, `average`
+    $sel="SELECT distinct `title`, `latitude`, `longitude`, `zipcode`, `bedRoom`, `yieldValue`, `imgLink`, `url`, `price`, `zipcode`, `average`
     FROM `st_listings_sale_stuff` 
-    WHERE (`latitude` BETWEEN ".$miny." AND ".$maxy.") 
-    AND   (`longitude` BETWEEN ".$minx." AND ".$maxx.") 
-    and   `yieldValue`>0 and `yieldValue`<36 
-    and `bedRoom`>0
-    and   (`yieldValue` BETWEEN " + $minyield + " AND "+ $maxyield +") 
-    and   (`bedRoom` BETWEEN " + $minbedroom + " AND "+ $maxbedroom +") 
-    and   (`price` BETWEEN " + $minprice + " AND "+ $maxprice +") 
-    ORDER by `yieldValue` DESC LIMIT 0,30";
+    WHERE ";
+    
+    $conds = array();
+    $conds[] = "`yieldValue`>0 and `yieldValue`<36 ";
+    $conds[] = "`bedRoom`>0";
+    if ($minx){
+        $conds[] = "(`latitude` BETWEEN ".$miny." AND ".$maxy.") AND   (`longitude` BETWEEN ".$minx." AND ".$maxx.")";
+    }
+    if ($minyield)
+        $conds[] = "(`yieldValue` BETWEEN " + $minyield + " AND "+ $maxyield +") ";
+    if ($minbedrooms)
+        $conds[] = "(`bedRoom` BETWEEN " + $minbedrooms + " AND "+ $maxbedrooms +") ";
+    if ($minprice)
+        $conds[] = "(`price` BETWEEN " + $minprice + " AND "+ $maxprice +") ";
+    
+    $order = "ORDER by `yieldValue` DESC";
+
+    $qry = $sel + implode(" and ", $conds) + $order;
     //return $qry;
     //echo "<script>console.log( 'Checking Query for Duplicates: " . $qry . "' );</script>";
     $result=mysqli_query($con, $qry);
