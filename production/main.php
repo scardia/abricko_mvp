@@ -1,5 +1,6 @@
 <?php
-	require_once('assets/config.nic.php');
+    require_once('assets/config.nic.php');
+    header('Access-Control-Allow-Origin: *'); 
     try {
         if (isset($_REQUEST['qry']) && !empty($_REQUEST['qry'])) {
             $action = $_REQUEST['qry'];
