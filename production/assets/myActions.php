@@ -236,3 +236,62 @@ function generateRandomString($length = 8)
     }
     return $randomString;
 }
+
+
+
+
+
+////////////////////////////////////////////////////////////////////////////////
+
+
+
+function getAll()
+{
+    global $con;
+    $minx=$_REQUEST['minx'];
+    $miny=$_REQUEST['miny'];
+    $maxx=$_REQUEST['maxx'];
+    $maxy=$_REQUEST['maxy'];
+    $minyield=$_REQUEST['minyield'];
+    $maxyield=$_REQUEST['maxyield'];
+    $minbedroom=$_REQUEST['minbedroom'];
+    $maxbedroom=$_REQUEST['maxbedroom'];
+    $minprice=$_REQUEST['minprice'];
+    $maxprice=$_REQUEST['maxprice'];
+    #$qry="SELECT distinct `title`, `latitude`, `longitude`, `calc_yield` as `yieldValue`, `imgLink`, `url` FROM `v_st_listings_sale` WHERE (`latitude` BETWEEN ".$miny." AND ".$maxy.") AND (`longitude` BETWEEN ".$minx." AND ".$maxx.") and `calc_yield`>0 and `calc_yield`<36 and `bedRoom`>0 ORDER by `calc_yield` DESC LIMIT 0,30";
+    $qry="SELECT distinct `title`, `latitude`, `longitude`, `zipcode`, `bedRoom`, `yieldValue`, `imgLink`, `url`, `price`
+    FROM `st_listings_sale_stuff` 
+    WHERE (`latitude` BETWEEN ".$miny." AND ".$maxy.") 
+    AND   (`longitude` BETWEEN ".$minx." AND ".$maxx.") 
+    and   `yieldValue`>0 and `yieldValue`<36 
+    and `bedRoom`>0
+    and   (`yieldValue` BETWEEN " + $minyield + " AND "+ $maxyield +") 
+    and   (`bedRoom` BETWEEN " + $minbedroom + " AND "+ $maxbedroom +") 
+    and   (`price` BETWEEN " + $minprice + " AND "+ $maxprice +") 
+    ORDER by `yieldValue` DESC LIMIT 0,30";
+    //return $qry;
+    //echo "<script>console.log( 'Checking Query for Duplicates: " . $qry . "' );</script>";
+    $result=mysqli_query($con, $qry);
+    $data=array();
+    if (mysqli_num_rows($result) >0) {
+        while ($row = $result->fetch_array()) {
+            $y=doubleval(number_format(($row['yieldValue']), 2, '.', ''));
+            $yield=strval($y);
+            $yieldp=$yield."%";
+            $title=$row['title'];//str_replace(" for sale", "", $row['title']);
+            $data[] = array(
+                "label"=>$title,
+                "y"=>$y,
+                "url"=>$row['imgLink'],
+                "indexLabel"=>$yieldp,
+                "yield"=> $yield, 
+                "pUrl"=>$row['url'],
+                
+                "lat"=>$row['latitude'],
+                "lang"=>$row['longitude'],
+                "bedRooms"=>$row['bedRoom']
+            );
+        }
+    }
+    return json_encode($data);
+}
