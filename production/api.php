@@ -71,4 +71,4 @@ if (mysqli_num_rows($result) >0) {
         );
     }
 }
-return json_encode($data);
+echo(json_encode($data));
