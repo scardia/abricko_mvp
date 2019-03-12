@@ -259,7 +259,7 @@ function getAll()
     $minprice=$_REQUEST['minprice'];
     $maxprice=$_REQUEST['maxprice'];
     #$qry="SELECT distinct `title`, `latitude`, `longitude`, `calc_yield` as `yieldValue`, `imgLink`, `url` FROM `v_st_listings_sale` WHERE (`latitude` BETWEEN ".$miny." AND ".$maxy.") AND (`longitude` BETWEEN ".$minx." AND ".$maxx.") and `calc_yield`>0 and `calc_yield`<36 and `bedRoom`>0 ORDER by `calc_yield` DESC LIMIT 0,30";
-    $qry="SELECT distinct `title`, `latitude`, `longitude`, `zipcode`, `bedRoom`, `yieldValue`, `imgLink`, `url`, `price`
+    $qry="SELECT distinct `title`, `latitude`, `longitude`, `zipcode`, `bedRoom`, `yieldValue`, `imgLink`, `url`, `price`, `zipcode`, `average`
     FROM `st_listings_sale_stuff` 
     WHERE (`latitude` BETWEEN ".$miny." AND ".$maxy.") 
     AND   (`longitude` BETWEEN ".$minx." AND ".$maxx.") 
@@ -285,7 +285,11 @@ function getAll()
                 "url"=>$row['imgLink'],
                 "indexLabel"=>$yieldp,
                 "yield"=> $yield, 
-                "pUrl"=>$row['url'],
+                "url"=>$row['url'],
+                "img"=>$row['imgLink'],
+                "price"=>$row['price'],
+                "zipcode"=>$row['zipcode'],
+                "average"=>$row['average'],
                 
                 "lat"=>$row['latitude'],
                 "lang"=>$row['longitude'],
