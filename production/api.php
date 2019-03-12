@@ -23,24 +23,24 @@ $maxbedrooms=$_REQUEST['maxbedrooms'];
 $minprice=$_REQUEST['minprice'];
 $maxprice=$_REQUEST['maxprice'];
 #$qry="SELECT distinct `title`, `latitude`, `longitude`, `calc_yield` as `yieldValue`, `imgLink`, `url` FROM `v_st_listings_sale` WHERE (`latitude` BETWEEN ".$miny." AND ".$maxy.") AND (`longitude` BETWEEN ".$minx." AND ".$maxx.") and `calc_yield`>0 and `calc_yield`<36 and `bedRoom`>0 ORDER by `calc_yield` DESC LIMIT 0,30";
-$sel="SELECT distinct `title`, `latitude`, `longitude`, `zipcode`, `bedRoom`, `yieldValue`, `imgLink`, `url`, `price`, `zipcode`, `average`
+$sel="SELECT *
 FROM `st_listings_sale_stuff` 
 WHERE ";
 
 $conds = array();
-$conds[] = "`yieldValue`>0 and `yieldValue`<36 ";
-$conds[] = "`bedRoom`>0";
+$conds[] = " `yieldValue`>0 and `yieldValue`<36 ";
+$conds[] = " `bedRoom`>0";
 if ($minx){
-    $conds[] = "(`latitude` BETWEEN ".$miny." AND ".$maxy.") AND   (`longitude` BETWEEN ".$minx." AND ".$maxx.")";
+    $conds[] = " (`latitude` BETWEEN ".$miny." AND ".$maxy.") AND   (`longitude` BETWEEN ".$minx." AND ".$maxx.") ";
 }
 if ($minyield)
-    $conds[] = "(`yieldValue` BETWEEN " + $minyield + " AND "+ $maxyield +") ";
+    $conds[] = " (`yieldValue` BETWEEN " + $minyield + " AND "+ $maxyield +") ";
 if ($minbedrooms)
-    $conds[] = "(`bedRoom` BETWEEN " + $minbedrooms + " AND "+ $maxbedrooms +") ";
+    $conds[] = " (`bedRoom` BETWEEN " + $minbedrooms + " AND "+ $maxbedrooms +") ";
 if ($minprice)
-    $conds[] = "(`price` BETWEEN " + $minprice + " AND "+ $maxprice +") ";
+    $conds[] = " (`price` BETWEEN " + $minprice + " AND "+ $maxprice +") ";
 
-$order = "ORDER by `yieldValue` DESC";
+$order = " ORDER by `yieldValue` DESC ";
 
 $qry = $sel + implode(" and ", $conds) + $order;
 //return $qry;
@@ -71,4 +71,4 @@ if (mysqli_num_rows($result) >0) {
         );
     }
 }
-echo(json_encode($data));
+echo(json_encode(array("results"=>$data, "query"=>$qry));
