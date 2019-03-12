@@ -47,7 +47,7 @@ else
 $order = " ORDER by `yieldValue` DESC limit ".$page.",50";
 
 $qry = $sel . implode(" and ", $conds) . $order;
-echo $qry;
+#echo $qry;
 //echo "<script>console.log( 'Checking Query for Duplicates: " . $qry . "' );</script>";
 $result=mysqli_query($con, $qry);
 $data=array();
@@ -75,4 +75,4 @@ if (mysqli_num_rows($result) >0) {
         );
     }
 }
-echo(json_encode($data));
+echo(json_encode(array("query"=>$qry, "results"=>$data)));
