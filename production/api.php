@@ -24,7 +24,7 @@ $minprice=$_REQUEST['minprice'];
 $maxprice=$_REQUEST['maxprice'];
 $page = $_REQUEST['page'];
 #$qry="SELECT distinct `title`, `latitude`, `longitude`, `calc_yield` as `yieldValue`, `imgLink`, `url` FROM `v_st_listings_sale` WHERE (`latitude` BETWEEN ".$miny." AND ".$maxy.") AND (`longitude` BETWEEN ".$minx." AND ".$maxx.") and `calc_yield`>0 and `calc_yield`<36 and `bedRoom`>0 ORDER by `calc_yield` DESC LIMIT 0,30";
-$sel="SELECT `title`, `latitude`, `longitude`, `zipcode`, `bedRoom`, `yieldValue`, `imgLink`, `url`, `price`, `zipcode`, `average`
+$sel="SELECT * 
 FROM `st_listings_sale_stuff` 
 WHERE ";
 
@@ -56,23 +56,11 @@ if (mysqli_num_rows($result) >0) {
         $y=doubleval(number_format(($row['yieldValue']), 2, '.', ''));
         $yield=strval($y);
         $yieldp=$yield."%";
-        $title=$row['title'];//str_replace(" for sale", "", $row['title']);
-        $data[] = array(
-            "label"=>$title,
-            "y"=>$y,
-            "url"=>$row['imgLink'],
-            "indexLabel"=>$yieldp,
-            "yield"=> $yield, 
-            "url"=>$row['url'],
-            "img"=>$row['imgLink'],
-            "price"=>$row['price'],
-            "zipcode"=>$row['zipcode'],
-            "average"=>$row['average'],
-            
-            "lat"=>$row['latitude'],
-            "lang"=>$row['longitude'],
-            "bedRooms"=>$row['bedRoom']
-        );
+        $row["label"] = $row['title'];//str_replace(" for sale", "", $row['title']);
+        $row["indexLabel"] = $yieldp;
+        $row["yield"] = $yield;
+        $row["y"] = $y;
+        $data[] = $row;
     }
 }
 header('Access-Control-Allow-Origin: *'); 
