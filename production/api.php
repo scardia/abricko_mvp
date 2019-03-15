@@ -57,7 +57,7 @@ $qry = $sel . implode(" and ", $conds) . $order;
 $cqry = $cnt . implode(" and ", $conds);
 $cntr=mysqli_query($con, $cqry);
 if (mysqli_num_rows($cntr) > 0) {
-    while ($row = $result->fetch_array()) {
+    while ($row = $cntr->fetch_array()) {
         $cont = $row["count"];
     }
 }
