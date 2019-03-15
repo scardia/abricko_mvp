@@ -78,4 +78,4 @@ if (mysqli_num_rows($result) >0) {
     }
 }
 header('Access-Control-Allow-Origin: *'); 
-echo(json_encode(array("query"=>$qry, "results"=>$data, "count"=>$count)));
+echo(json_encode(array("query"=>$qry, "results"=>$data, "count"=>$cont)));
