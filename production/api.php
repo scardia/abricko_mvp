@@ -15,6 +15,8 @@ if (mysqli_connect_errno()) {
 
 $ipp = 15;
 
+$id=$_REQUEST['id'];
+
 $minx=$_REQUEST['minx'];
 $miny=$_REQUEST['miny'];
 $maxx=$_REQUEST['maxx'];
@@ -36,30 +38,38 @@ FROM `st_listings_sale_stuff`
 WHERE ";
 
 $conds = array();
-$conds[] = "`yieldValue`>0 and `yieldValue`<36 ";
-$conds[] = "`bedRoom`>0";
-if ($minx){
-    $conds[] = " (`latitude` BETWEEN ".$miny." AND ".$maxy.") AND (`longitude` BETWEEN ".$minx." AND ".$maxx.")";
-}
-if ($minyield || $maxyield)
-    $conds[] = " (`yieldValue` BETWEEN " . $minyield . " AND ". $maxyield .") ";
-if ($minbedrooms || $maxbedrooms)
-    $conds[] = " (`bedRoom` BETWEEN " . $minbedrooms . " AND ". $maxbedrooms .") ";
-if ($minprice || $maxprice)
-    $conds[] = " (`price` BETWEEN " . $minprice . " AND ". $maxprice .") ";
-if ($page)
-    $page = ($page-1)*$ipp;
-else 
-    $page = 0;
-$order = " ORDER by `yieldValue` DESC limit ".$page.",".$ipp;
+if($id) {
+    $conds[] = "id = ".$id;
+    $qry = $sel . implode(" and ", $conds);
+    $cont = 1;
+} else {
 
-$qry = $sel . implode(" and ", $conds) . $order;
-$cqry = $cnt . implode(" and ", $conds);
-$cntr=mysqli_query($con, $cqry);
-if (mysqli_num_rows($cntr) > 0) {
-    while ($row = $cntr->fetch_array()) {
-        $cont = $row["count"];
+    $conds[] = "`yieldValue`>0 and `yieldValue`<36 ";
+    $conds[] = "`bedRoom`>0";
+    if ($minx){
+        $conds[] = " (`latitude` BETWEEN ".$miny." AND ".$maxy.") AND (`longitude` BETWEEN ".$minx." AND ".$maxx.")";
     }
+    if ($minyield || $maxyield)
+        $conds[] = " (`yieldValue` BETWEEN " . $minyield . " AND ". $maxyield .") ";
+    if ($minbedrooms || $maxbedrooms)
+        $conds[] = " (`bedRoom` BETWEEN " . $minbedrooms . " AND ". $maxbedrooms .") ";
+    if ($minprice || $maxprice)
+        $conds[] = " (`price` BETWEEN " . $minprice . " AND ". $maxprice .") ";
+    if ($page)
+        $page = ($page-1)*$ipp;
+    else 
+        $page = 0;
+    $order = " ORDER by `yieldValue` DESC limit ".$page.",".$ipp;
+
+    $qry = $sel . implode(" and ", $conds) . $order;
+    $cqry = $cnt . implode(" and ", $conds);
+    $cntr=mysqli_query($con, $cqry);
+    if (mysqli_num_rows($cntr) > 0) {
+        while ($row = $cntr->fetch_array()) {
+            $cont = $row["count"];
+        }
+    }
+
 }
 #echo $qry;
 //echo "<script>console.log( 'Checking Query for Duplicates: " . $qry . "' );</script>";
