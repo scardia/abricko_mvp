@@ -1,4 +1,4 @@
-mapboxgl.accessToken = 'pk.eyJ1IjoiYWJyaWNrbyIsImEiOiJjanJhaGxlYzcwaG40NDRsaHhocXdocDVhIn0.hVzJBL6S1alSJ_-bbKc9QQ';
+mapboxgl.accessToken = 'pk.eyJ1IjoiYWJyaWNrbyIsImEiOiJjanRkajJ4dzYwZGcwNDNvOGQybnZ2aWU0In0.dHeKsAVs3BmZ0biKTOi7wg';
 
 $.LoadingOverlaySetup({
     background      : "rgba(0, 0, 0, 0.5)",
