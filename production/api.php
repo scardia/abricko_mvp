@@ -35,7 +35,7 @@ $minprice=$_REQUEST['minprice'];
 $maxprice=$_REQUEST['maxprice'];
 $page = $_REQUEST['page'];
 
-$order = $_REQUEST['order']
+$order = $_REQUEST['order'];
 #$qry="SELECT distinct `title`, `latitude`, `longitude`, `calc_yield` as `yieldValue`, `imgLink`, `url` FROM `v_st_listings_sale` WHERE (`latitude` BETWEEN ".$miny." AND ".$maxy.") AND (`longitude` BETWEEN ".$minx." AND ".$maxx.") and `calc_yield`>0 and `calc_yield`<36 and `bedRoom`>0 ORDER by `calc_yield` DESC LIMIT 0,30";
 $sel="SELECT * 
 FROM `st_listings_sale_stuff` 
