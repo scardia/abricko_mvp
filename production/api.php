@@ -17,17 +17,25 @@ $ipp = 15;
 
 $id=$_REQUEST['id'];
 
+$city = $_REQUEST['city'];
+$ptype = $_REQUEST['ptype'];
+
 $minx=$_REQUEST['minx'];
 $miny=$_REQUEST['miny'];
 $maxx=$_REQUEST['maxx'];
 $maxy=$_REQUEST['maxy'];
+
 $minyield=$_REQUEST['minyield'];
 $maxyield=$_REQUEST['maxyield'];
+
 $minbedrooms=$_REQUEST['minbedrooms'];
 $maxbedrooms=$_REQUEST['maxbedrooms'];
+
 $minprice=$_REQUEST['minprice'];
 $maxprice=$_REQUEST['maxprice'];
 $page = $_REQUEST['page'];
+
+$order = $_REQUEST['order']
 #$qry="SELECT distinct `title`, `latitude`, `longitude`, `calc_yield` as `yieldValue`, `imgLink`, `url` FROM `v_st_listings_sale` WHERE (`latitude` BETWEEN ".$miny." AND ".$maxy.") AND (`longitude` BETWEEN ".$minx." AND ".$maxx.") and `calc_yield`>0 and `calc_yield`<36 and `bedRoom`>0 ORDER by `calc_yield` DESC LIMIT 0,30";
 $sel="SELECT * 
 FROM `st_listings_sale_stuff` 
@@ -49,6 +57,12 @@ if($id) {
     if ($minx){
         $conds[] = " (`latitude` BETWEEN ".$miny." AND ".$maxy.") AND (`longitude` BETWEEN ".$minx." AND ".$maxx.")";
     }
+    if ($city) {
+        $conds[] = " city like ".$city." ";
+    }
+    if ($ptype){
+        $conds[] = " title like %".$ptype."% ";
+    }
     if ($minyield || $maxyield)
         $conds[] = " (`yieldValue` BETWEEN " . $minyield . " AND ". $maxyield .") ";
     if ($minbedrooms || $maxbedrooms)
@@ -59,7 +73,7 @@ if($id) {
         $page = ($page-1)*$ipp;
     else 
         $page = 0;
-    $order = " ORDER by `yieldValue` DESC limit ".$page.",".$ipp;
+    $order = " ORDER by `.$order.` DESC limit ".$page.",".$ipp;
 
     $qry = $sel . implode(" and ", $conds) . $order;
     $cqry = $cnt . implode(" and ", $conds);

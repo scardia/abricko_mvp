@@ -57,8 +57,7 @@ map.on('load', function () {
 
 
     //set up data layers
-    map
-        .addLayer({
+    map .addLayer({
             'id': 'yields',
             'type': 'fill-extrusion',
             'source-layer':'yields',
