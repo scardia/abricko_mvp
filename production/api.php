@@ -58,10 +58,10 @@ if($id) {
         $conds[] = " (`latitude` BETWEEN ".$miny." AND ".$maxy.") AND (`longitude` BETWEEN ".$minx." AND ".$maxx.")";
     }
     if ($city) {
-        $conds[] = " city like ".$city." ";
+        $conds[] = " city like \"".$city."%\" ";
     }
     if ($ptype){
-        $conds[] = " title like %".$ptype."% ";
+        $conds[] = " title like \"%".$ptype."%\" ";
     }
     if ($minyield || $maxyield)
         $conds[] = " (`yieldValue` BETWEEN " . $minyield . " AND ". $maxyield .") ";
