@@ -35,7 +35,11 @@ $minprice=$_REQUEST['minprice'];
 $maxprice=$_REQUEST['maxprice'];
 $page = $_REQUEST['page'];
 
-$order = $_REQUEST['order'];
+$order_field = $_REQUEST['order'];
+$order_dir = "ASC";
+if ($order_field == "yieldValue") {
+    $order_dir = "DESC";
+}
 
 $sel="SELECT * 
 FROM `st_listings_sale_stuff` 
@@ -73,7 +77,7 @@ if($id) {
         $page = ($page-1)*$ipp;
     else 
         $page = 0;
-    $order = " ORDER by ".$order." DESC limit ".$page.",".$ipp;
+    $order = " ORDER by ".$order_field." ".$order_dir." limit ".$page.",".$ipp;
 
     $qry = $sel . implode(" and ", $conds) . $order;
     $cqry = $cnt . implode(" and ", $conds);

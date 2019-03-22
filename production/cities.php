@@ -21,7 +21,7 @@ $sel="SELECT *
 FROM `cities` 
 WHERE city like %".$city."% ";
 
-$order = " ORDER by `.$order.` DESC limit ".$ipp;
+$order = " ORDER by `city` DESC limit ".$ipp;
 
 $qry = $sel . $order;
 
