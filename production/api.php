@@ -89,6 +89,7 @@ if($id) {
     }
 
 }
+$qry = str_replace("\n","",$qry);
 #echo $qry;
 //echo "<script>console.log( 'Checking Query for Duplicates: " . $qry . "' );</script>";
 $result=mysqli_query($con, $qry);
