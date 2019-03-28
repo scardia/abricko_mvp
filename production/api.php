@@ -62,7 +62,7 @@ if($id) {
         $conds[] = " (`latitude` BETWEEN ".$miny." AND ".$maxy.") AND (`longitude` BETWEEN ".$minx." AND ".$maxx.")";
     }
     if ($city) {
-        $conds[] = " city like \"".$city."%\" ";
+        $conds[] = " ( city like \"%".$city."%\" or zipcode like \"%".$city."%\" ) ";
     }
     if ($ptype){
         $conds[] = " title like \"%".$ptype."%\" ";
