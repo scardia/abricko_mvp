@@ -13,7 +13,7 @@ if (mysqli_connect_errno()) {
     die("Failed to connect to MySQL: " . mysqli_connect_error());
 }
 
-$ipp = 15;
+$ipp = 25;
 
 $id=$_REQUEST['id'];
 
@@ -41,7 +41,7 @@ if ($order_field == "yieldValue") {
     $order_dir = "DESC";
 }
 
-$sel="SELECT * 
+$sel="SELECT distinct(*) 
 FROM `st_listings_sale_stuff` 
 WHERE ";
 
